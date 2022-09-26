@@ -22,25 +22,48 @@ public class UsrArticleController {
 		makeTestData();
 	}
 
+	// 서비스메서드
 	private void makeTestData() {
 		for(int i=1; i<=10; i++) {
-			int id = ++lastArticleId;
-			String title = "제목"+id;
-			String body = "내용"+id;
+			String title = "제목"+i;
+			String body = "내용"+i;
 			
-			articles.add(new Article(id, title, body));
+			writeArticle(title, body);
 		}
 	}
+	
+	private Article writeArticle(String title, String body) {
+		int id = ++lastArticleId;
+		Article article = new Article(id, title, body);
+		articles.add(article);
+		
+		return article;
+	}
+	
+	private Article getArticle(int id) {
+		Article target = null;
+		
+		for(Article article : articles) {
+			if(article.getId() == id) {
+				target = article;
+			}
+		}
+		
+		return target;
+	}
+	
+	private void deleteArticle(int id) {
+		Article article = getArticle(id);
+		
+		articles.remove(article);
+	}
 
+	// 액션메서드
 	@RequestMapping("/usr/article/doAdd")
 	@ResponseBody
 	public Article doAdd(String title, String body) {
-		int id = lastArticleId + 1;
-		Article article = new Article(id, title, body);
-
-		articles.add(article);
-		lastArticleId = id;
-
+		Article article = writeArticle(title, body);
+		
 		return article;
 	}
 
@@ -54,19 +77,13 @@ public class UsrArticleController {
 	@RequestMapping("/usr/article/doDelete")
 	@ResponseBody
 	public String doDelete(int id) {
-		Article target = null;
-		
-		for(Article article : articles) {
-			if(article.getId() == id) {
-				target = article;
-			}
-		}
+		Article article = getArticle(id);
 
-		if(target == null) {
-			return String.format("%d번 글은 존재하지 않습니다.", id);
-		} else {
-			articles.remove(target);
-			return String.format("%d번 글이 삭제되었습니다.", id);
+		if(article == null) {
+			return id + "번 글은 존재하지 않습니다.";
 		}
+		
+		deleteArticle(id);
+		return id + "번 글이 삭제되었습니다.";
 	}
 }
