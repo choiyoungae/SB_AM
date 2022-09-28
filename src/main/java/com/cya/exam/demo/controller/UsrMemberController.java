@@ -17,10 +17,10 @@ public class UsrMemberController {
 	
 	@RequestMapping("/usr/member/doJoin")
 	@ResponseBody
-	public String doJoin(String loginId, String loginPw, String name, String nickname, String cellphoneNum,
+	public String doJoin(String loginId, String loginPw, String name, String nickName, String cellphoneNum,
 			String email) {
 		
-		memberService.join(loginId, loginPw, name, nickname, cellphoneNum, email);
+		memberService.join(loginId, loginPw, name, nickName, cellphoneNum, email);
 		
 		return "회원가입이 완료되었습니다!";
 	}
