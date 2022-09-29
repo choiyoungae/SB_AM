@@ -14,8 +14,14 @@ public class MemberService {
 
 	public int join(String loginId, String loginPw, String name, String nickName, String cellphoneNum, String email) {
 		
+		// 로그인 아이디 중복 체크
 		if(memberRepository.isLoginIdDup(loginId) != 0) {
 			return -1;
+		}
+		
+		// 이름 + 이메일 중복 체크
+		if(memberRepository.isNameAndEmailDup(name, email) != 0) {
+			return -2;
 		}
 		
 		memberRepository.join(loginId, loginPw, name, nickName, cellphoneNum, email);

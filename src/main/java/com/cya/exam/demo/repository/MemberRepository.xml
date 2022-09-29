@@ -32,4 +32,11 @@
 		FROM `member`
 		WHERE loginId = #{loginId};
 	</select>
+	
+	<select id="isNameAndEmailDup" resultType="int">
+		SELECT COUNT(*)
+		FROM `member`
+		WHERE `name` = #{name}
+		AND email = #{email};
+	</select>
 </mapper>
