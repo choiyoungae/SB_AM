@@ -15,4 +15,21 @@
 		cellphoneNum = #{cellphoneNum},
 		email = #{email}
 	</insert>
+	
+	<select id="getMemberbyId" resultType="Member">
+		SELECT *
+		FROM `member`
+		WHERE id
+		= #{id}
+	</select>
+	
+	<select id="getLastInsertId" resultType="int">
+		SELECT LAST_INSERT_ID()
+	</select>
+	
+	<select id="isLoginIdDup" resultType="int">
+		SELECT COUNT(*)
+		FROM `member`
+		WHERE loginId = #{loginId};
+	</select>
 </mapper>
