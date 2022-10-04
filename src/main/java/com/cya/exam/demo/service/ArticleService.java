@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cya.exam.demo.repository.ArticleRepository;
+import com.cya.exam.demo.util.Ut;
 import com.cya.exam.demo.vo.Article;
+import com.cya.exam.demo.vo.ResultData;
 
 @Service
 public class ArticleService {
@@ -29,10 +31,12 @@ public class ArticleService {
 		return articleRepository.getArticles();
 	}
 	
-	public int writeArticle(String title, String body) {
+	public ResultData<Integer> writeArticle(String title, String body) {
 		articleRepository.writeArticle(title, body);
 		
-		return articleRepository.getLastInsertId();
+		int id = articleRepository.getLastInsertId();
+
+		return ResultData.from("S-1", Ut.f("%d번 게시물이 생성되었습니다", id), id);
 	}
 	
 	public void deleteArticle(int id) {

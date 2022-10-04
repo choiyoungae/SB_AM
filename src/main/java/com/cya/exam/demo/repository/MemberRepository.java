@@ -16,4 +16,6 @@ public interface MemberRepository {
 	public int isLoginIdDup(String loginId);
 
 	public int isNameAndEmailDup(String name, String email);
+
+	public Member getMemberByLoginId(String loginId);
 }
