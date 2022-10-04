@@ -9,7 +9,7 @@ import com.cya.exam.demo.vo.Article;
 @Mapper
 public interface ArticleRepository {
 	
-	public void writeArticle(String title, String body);
+	public void writeArticle(String title, String body, int loginedMemberId);
 	
 	public Article getArticle(int id);
 

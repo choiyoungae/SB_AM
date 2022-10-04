@@ -6,10 +6,10 @@
 	<insert id="writeArticle">
 		INSERT INTO article
 		SET regDate = NOW(),
-		updateDate =
-		NOW(),
+		updateDate = NOW(),
 		title = #{title},
-		`body` = #{body}
+		`body` = #{body},
+		memberId = #{loginedMemberId}
 	</insert>
 
 	<select id="getArticles" resultType="Article">
@@ -22,8 +22,7 @@
 	<select id="getArticle" resultType="Article">
 		SELECT *
 		FROM article
-		WHERE id
-		= #{id}
+		WHERE id = #{id}
 	</select>
 
 	<delete id="deleteArticle">

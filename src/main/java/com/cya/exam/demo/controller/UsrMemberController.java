@@ -98,13 +98,13 @@ public class UsrMemberController {
 	@ResponseBody
 	public ResultData<Member> doLogout(HttpSession httpsession) {
 		
-		boolean isLogined = true;
+		boolean isLogined = false;
 		
 		if(httpsession.getAttribute("loginedMemberId") == null) {
-			isLogined = false;
+			isLogined = true;
 		}
 		
-		if(!isLogined) {
+		if(isLogined) {
 			return ResultData.from("F-1", "이미 로그아웃되었습니다.");
 		}
 		

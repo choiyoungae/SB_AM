@@ -30,6 +30,7 @@ CREATE TABLE `member`(
 
 
 # 게시글 테스트 데이터 생성
+
 INSERT INTO article
 SET regDate = NOW(),
 updateDate = NOW(),
@@ -88,8 +89,13 @@ SET regDate = NOW(),
     cellphoneNum = '01056785678',
     email = 'choiaeyoung1001@gmail.com';
     
+    
+# 게시물 테이블에 회원번호 칼럼 추가
+ALTER TABLE article ADD COLUMN memberId INT(10) UNSIGNED NOT NULL AFTER `updateDate`;
+
+UPDATE article
+SET memberId = 2
+WHERE memberId = 0;
+
 SELECT * FROM `member`;
-
 SELECT * FROM article ORDER BY id DESC;
-
-SELECT LAST_INSERT_ID();
