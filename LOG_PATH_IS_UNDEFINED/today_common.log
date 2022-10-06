@@ -11541,3 +11541,27 @@ Unconditional classes:
 2022-10-06 16:35:08 [DEBUG] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection net.sf.log4jdbc.sql.jdbcapi.ConnectionSpy@5db0b0fd
 2022-10-06 16:35:08 [DEBUG] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection net.sf.log4jdbc.sql.jdbcapi.ConnectionSpy@6ca72ae7
 2022-10-06 16:35:08 [DEBUG] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection net.sf.log4jdbc.sql.jdbcapi.ConnectionSpy@3d9f4fb2
+2022-10-06 16:35:08 [DEBUG] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection net.sf.log4jdbc.sql.jdbcapi.ConnectionSpy@1a854622
+2022-10-06 16:35:08 [DEBUG] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection net.sf.log4jdbc.sql.jdbcapi.ConnectionSpy@39d1968c
+2022-10-06 16:35:08 [DEBUG] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection net.sf.log4jdbc.sql.jdbcapi.ConnectionSpy@2d0800c6
+2022-10-06 16:35:08 [DEBUG] jdbc.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+1. SELECT *
+		FROM article
+		ORDER BY
+		id DESC
+ {executed in 113 msec}
+2022-10-06 16:35:08 [DEBUG] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection net.sf.log4jdbc.sql.jdbcapi.ConnectionSpy@3afb645f
+2022-10-06 16:35:08 [DEBUG] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection net.sf.log4jdbc.sql.jdbcapi.ConnectionSpy@b99b436
+2022-10-06 16:35:08 [DEBUG] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - After adding stats (total=10, active=1, idle=9, waiting=0)
+2022-10-06 16:35:08 [INFO ] jdbc.resultsettable - 
+|---|--------------------|--------------------|---------|------|-----|
+|id |regdate             |updatedate          |memberid |title |body |
+|---|--------------------|--------------------|---------|------|-----|
+|4  |2022-10-05 18:32:11 |2022-10-05 18:32:11 |2        |제목4   |내용4  |
+|3  |2022-10-05 18:32:11 |2022-10-05 18:32:11 |2        |제목3   |내용3  |
+|2  |2022-10-05 18:32:11 |2022-10-05 18:32:11 |2        |제목2   |내용2  |
+|1  |2022-10-05 18:32:11 |2022-10-05 18:32:11 |2        |제목1   |내용1  |
+|---|--------------------|--------------------|---------|------|-----|
+
+2022-10-06 16:35:08 [DEBUG] c.c.e.d.r.A.getArticles - <==      Total: 4
+2022-10-06 16:35:08 [DEBUG] org.mybatis.spring.SqlSessionUtils - Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@6dbb4a2f]
