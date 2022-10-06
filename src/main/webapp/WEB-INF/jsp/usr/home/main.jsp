@@ -4,9 +4,19 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>메인</title>
+<title>MAIN</title>
 </head>
 <body>
-	<h1>메인페이지</h1>
+	<h1>MAIN Page</h1>
+	
+	<header>
+		<a href="#">로고</a>
+		
+		<ul>
+			<li><a href="/">HOME</a></li>
+			<li><a href="/usr/article/list">LIST</a></li>
+		</ul>
+	</header>
+	
 </body>
 </html>
