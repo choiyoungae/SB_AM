@@ -20,15 +20,39 @@
 <script src="/resource/common.js" defer="defer"></script>
 </head>
 <body>
-	<h1>${pageTitle }</h1>
 	
 	<header>
-		<a href="#">로고</a>
-		
-		<ul>
-			<li><a href="/">HOME</a></li>
-			<li><a href="/usr/article/list">LIST</a></li>
-		</ul>
+		<div class="h-20 flex container mx-auto text-4xl">
+			<a href="#" class="flex items-center px-3">
+				<span>로고</span>
+			</a>
+			
+			<div class="flex-grow"></div>
+			
+			<ul class="flex">
+				<li class="hover:underline">
+					<a href="/" class="h-full flex items-center px-3">
+						<span>HOME</span>
+					</a>
+				</li>
+				<li class="hover:underline">
+					<a href="/usr/article/list" class="h-full flex items-center px-3">
+						<span>LIST</span>
+					</a>
+				</li>
+				<li class="hover:underline">
+					<a href="/usr/member/login" class="h-full flex items-center px-3">
+						<span>LOGIN</span>
+					</a>
+				</li>
+			</ul>
+		</div>
 	</header>
+	
+	<section class="my-3 text-2xl">
+		<div class="container mx-auto px-3">
+			<h1>${pageTitle }&nbsp;PAGE</h1>
+		</div>
+	</section>
 	<main>
 	
