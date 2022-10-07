@@ -8,6 +8,13 @@
 	<div class="container mx-auto px-3">
 		<div class="table-box-type-1">
 			<table>
+				<colgroup>
+					<col width="80" />
+					<col width="140" />
+					<col />
+					<col width="140" />
+				</colgroup>
+				
 				<thead>
 					<tr>
 						<th>번호</th>
@@ -23,7 +30,7 @@
 							<td>${article.id }</td>
 							<td>${article.regDate.substring(0,10) }</td>
 							<td><a href="../article/detail?id=${article.id }">${article.title }</a></td>
-							<td>${article.memberId }</td>
+							<td>${article.extra__writerName }</td>
 						</tr>
 					</c:forEach>
 				</tbody>

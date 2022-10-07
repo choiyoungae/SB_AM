@@ -6,6 +6,7 @@
 
 <section class="mt-8 text-xl">
 	<div class="container mx-auto px-3">
+		
 		<div class="table-box-type-1">
 			<table>
 				<colgroup>
@@ -27,7 +28,7 @@
 					</tr>
 					<tr>
 						<th>작성자</th>
-						<td>${article.memberId }</td>
+						<td>${article.extra__writerName }</td>
 					</tr>
 					<tr>
 						<th>제목</th>
@@ -43,6 +44,8 @@
 		
 		<div class="btns">
 			<button type="button" onclick="history.back();">뒤로가기</button>
+			<button type="button" onclick="/usr/article/doDelete?id=${article.id };">삭제하기</button>
+			<button type="button" onclick="history.back();">수정하기</button>
 		</div>
 	
 	</div>
