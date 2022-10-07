@@ -21,14 +21,31 @@ public class ArticleService {
 		this.articleRepository = articleRepository;
 	}
 	
-	public Article getArticle(int id) {
+	private void updateForPrintData(int actorId, Article article) {
+		if(article == null) {
+			return;
+		}
 		
-		return articleRepository.getArticle(id);
+		ResultData actorCanDeleteRd = actorCanDelete(actorId, article);
+		article.setExtra__actorCanDelete(actorCanDeleteRd.isSuccess());
 	}
 
-	public List<Article> getArticles() {
+	public Article getForPrintArticle(int actorId, int id) {
+		Article article = articleRepository.getForPrintArticle(id);
 		
-		return articleRepository.getArticles();
+		updateForPrintData(actorId, article);
+		
+		return article;
+	}
+
+	public List<Article> getForPrintArticles(int actorId) {
+		List<Article> articles = articleRepository.getArticles();
+		
+		for (Article article : articles) {
+			updateForPrintData(actorId, article);
+		}
+		
+		return articles;
 	}
 	
 	public ResultData<Integer> writeArticle(String title, String body, int loginedMemberId) {
@@ -48,7 +65,7 @@ public class ArticleService {
 		
 		articleRepository.modifyArticle(id, title, body);
 		
-		Article article = getArticle(id);
+		Article article = getForPrintArticle(0, id);
 		
 		return ResultData.from("S-1", Ut.f("%d번 게시물을 수정했습니다.", id), "article", article);
 	}
@@ -59,6 +76,19 @@ public class ArticleService {
 			return ResultData.from("F-2", "해당 게시물에 대한 권한이 없습니다.");
 		}
 		
-		return ResultData.from("S-2", "수정 가능");
+		return ResultData.from("S-1", "수정 가능");
+	}
+	
+	public ResultData actorCanDelete(int actorId, Article article) {
+		
+		if(article == null) {
+			return ResultData.from("F-1", "게시물이 존재하지 않습니다.");
+		}
+		
+		if(article.getMemberId() != actorId) {
+			return ResultData.from("F-2", "해당 게시물에 대한 권한이 없습니다.");
+		}
+		
+		return ResultData.from("S-1", "삭제 가능");
 	}
 }
