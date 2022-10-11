@@ -1,7 +1,5 @@
 package com.cya.exam.demo.util;
 
-import javax.servlet.http.HttpSession;
-
 public class Ut {
 
 	public static boolean isEmpty(Object obj) {

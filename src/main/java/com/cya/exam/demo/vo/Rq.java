@@ -26,9 +26,4 @@ public class Rq {
 		this.loginedMemberId = loginedMemberId;
 	}
 
-	public boolean isLogined() {
-		
-		return false;
-	}
-
 }
