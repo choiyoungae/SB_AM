@@ -85,7 +85,7 @@ public class UsrArticleController {
 		}
 		
 		articleService.deleteArticle(id);
-		return Ut.isReplace(Ut.f("%d번 게시물이 삭제되었습니다.", id), "../article/list");
+		return Ut.jsReplace(Ut.f("%d번 게시물이 삭제되었습니다.", id), "../article/list");
 	}
 
 	@RequestMapping("/usr/article/doModify")
