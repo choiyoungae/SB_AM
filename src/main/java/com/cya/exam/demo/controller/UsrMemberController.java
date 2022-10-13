@@ -1,5 +1,6 @@
 package com.cya.exam.demo.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import com.cya.exam.demo.util.Ut;
 import com.cya.exam.demo.vo.Article;
 import com.cya.exam.demo.vo.Member;
 import com.cya.exam.demo.vo.ResultData;
+import com.cya.exam.demo.vo.Rq;
 
 @Controller
 public class UsrMemberController {
@@ -65,8 +67,10 @@ public class UsrMemberController {
 	
 	@RequestMapping("/usr/member/doLogin")
 	@ResponseBody
-	public String doLogin(HttpSession httpSession, String loginId, String loginPw) {
-//		
+	public String doLogin(HttpSession httpSession, HttpServletRequest req, String loginId, String loginPw) {
+		
+		Rq rq = (Rq)req.getAttribute("rq");
+		
 		if(Ut.isEmpty(loginId)) {
 			return Ut.jsHistoryBack("아이디를 입력해주세요.");
 		}
@@ -84,17 +88,18 @@ public class UsrMemberController {
 			return Ut.jsHistoryBack("비밀번호가 일치하지 않습니다.");
 		}
 		
-		httpSession.setAttribute("loginedMemberId", member.getId());
-		
-		
+		rq.login(member);
 		
 		return Ut.jsReplace(Ut.f("%s님 반갑습니다.", member.getNickName()), "/");
 	}
 	
 	@RequestMapping("/usr/member/doLogout")
 	@ResponseBody
-	public String doLogout(HttpSession httpSession) {
-		httpSession.removeAttribute("loginedMemberId");
+	public String doLogout(HttpSession httpSession, HttpServletRequest req) {
+		
+		Rq rq = (Rq)req.getAttribute("rq");
+		
+		rq.logout();
 		
 		return Ut.jsReplace("로그아웃 되었습니다.", "/");
 	}
