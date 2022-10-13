@@ -41,9 +41,19 @@
 					</a>
 				</li>
 				<li class="hover:underline">
-					<a href="/usr/member/login" class="h-full flex items-center px-3">
-						<span>LOGIN</span>
-					</a>
+					<c:choose>
+					    <c:when test="${sessionScope.loginedMemberId eq null}">
+							<a href="/usr/member/login" class="h-full flex items-center px-3">
+								<span>LOGIN</span>
+							</a>
+					    </c:when>
+					    <c:otherwise>
+							<a href="/usr/member/doLogout" class="h-full flex items-center px-3">
+								<span>LOGOUT</span>
+							</a>
+					    </c:otherwise>
+					</c:choose>
+					
 				</li>
 			</ul>
 		</div>

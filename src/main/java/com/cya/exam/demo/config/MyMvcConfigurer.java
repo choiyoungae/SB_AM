@@ -31,7 +31,7 @@ public class MyMvcConfigurer implements WebMvcConfigurer {
 		.addPathPatterns("/usr/article/doAdd").addPathPatterns("/usr/article/modify")
 		.addPathPatterns("/usr/article/doModify").addPathPatterns("/usr/article/doDelete");
 		
-//		registry.addInterceptor(beforeActionInterceptor).addPathPatterns("/usr/member/login");
+		registry.addInterceptor(needLogoutInterceptor).addPathPatterns("/usr/member/login");
 	}
 
 }
