@@ -6,8 +6,9 @@
 
 <section class="mt-8 text-xl">
 	<div class="container mx-auto px-3">
+	<div><a class="float-right mb-2 btn btn-active btn-ghost" href="../article/write">게시물 작성하기</a></div>
 		<div class="table-box-type-1">
-			<table>
+			<table class="table w-full">
 				<colgroup>
 					<col width="80" />
 					<col width="140" />
@@ -26,7 +27,7 @@
 				
 				<tbody>
 					<c:forEach var="article" items="${articles }">
-						<tr>
+						<tr class="hover">
 							<td>${article.id }</td>
 							<td>${article.regDate.substring(0,10) }</td>
 							<td><a href="../article/detail?id=${article.id }">${article.title }</a></td>

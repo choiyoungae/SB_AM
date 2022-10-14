@@ -3,6 +3,7 @@ package com.cya.exam.demo.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,17 +24,23 @@ public class UsrArticleController {
 	private ArticleService articleService;
 
 	// 액션메서드
-	@RequestMapping("/usr/article/doAdd")
+	@RequestMapping("/usr/article/write")
+	public String showAdd(HttpSession httpSession) {
+		
+		return "usr/article/write";
+	}
+	
+	@RequestMapping("/usr/article/doWrite")
 	@ResponseBody
-	public ResultData<Article> doAdd(HttpServletRequest req, String title, String body) {
+	public String doAdd(HttpServletRequest req, String title, String body) {
 		
 		Rq rq = (Rq)req.getAttribute("rq");
 		
 		if (Ut.isEmpty(title)) {
-			return ResultData.from("F-1", "제목을 입력해주세요");
+			return Ut.jsHistoryBack("제목을 입력해주세요");
 		}
 		if (Ut.isEmpty(body)) {
-			return ResultData.from("F-2", "내용을 입력해주세요");
+			return Ut.jsHistoryBack("내용을 입력해주세요");
 		}
 
 		ResultData<Integer> writeArticleRd = articleService.writeArticle(title, body, rq.getLoginedMemberId());
@@ -41,7 +48,7 @@ public class UsrArticleController {
 		int id = (int) writeArticleRd.getData1();
 		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
 		
-		return ResultData.newData(writeArticleRd, "article", article);
+		return Ut.jsReplace("게시물이 작성되었습니다.", Ut.f("detail?id=%d", id));
 	}
 
 	@RequestMapping("/usr/article/list")

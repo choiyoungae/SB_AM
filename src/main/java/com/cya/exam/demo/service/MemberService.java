@@ -35,9 +35,9 @@ public class MemberService {
 		return ResultData.from("S-1", "회원가입이 완료되었습니다", "id", id);
 	}
 
-	public Member getMemberbyId(int id) {
+	public Member getMemberById(int id) {
 		
-		return memberRepository.getMemberbyId(id);
+		return memberRepository.getMemberById(id);
 	}
 	
 	public Member getMemberByLoginId(String loginId) {

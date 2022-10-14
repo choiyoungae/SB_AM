@@ -4,16 +4,14 @@
 <script>
 	var historyBack = '${historyBack}' == 'true';
 	var msg = '${msg}'.trim();
-	
-	if(msg) {
+	if (msg) {
 		alert(msg);
 	}
-	if(historyBack) {
+	if (historyBack) {
 		history.back();
 	}
-	
 	var replaceUri = '${replaceUri}'.trim();
-	if(replaceUri) {
+	if (replaceUri) {
 		location.replace(replaceUri);
 	}
 </script>

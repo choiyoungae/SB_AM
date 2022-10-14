@@ -11,7 +11,7 @@ public interface MemberRepository {
 
 	public int getLastInsertId();
 
-	public Member getMemberbyId(int id);
+	public Member getMemberById(int id);
 	
 	public int isLoginIdDup(String loginId);
 

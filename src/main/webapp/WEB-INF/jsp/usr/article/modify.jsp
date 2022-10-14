@@ -42,7 +42,7 @@
 					<tr>
 						<th></th>
 						<td>
-							<button type="submit" value="수정" />수정</button>
+							<button class="btn btn-ghost" type="submit" value="수정" />수정</button>
 						</td>
 					</tr>
 				</tbody>
@@ -50,7 +50,7 @@
 		</form>
 		
 		<div class="btns">
-			<button class="btn-text-link" type="button" onclick="history.back();">뒤로가기</button>
+			<button class="btn-text-link btn btn-ghost" type="button" onclick="history.back();">뒤로가기</button>
 		</div>
 	
 	</div>
