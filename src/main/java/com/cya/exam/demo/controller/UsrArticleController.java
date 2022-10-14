@@ -32,7 +32,7 @@ public class UsrArticleController {
 	
 	@RequestMapping("/usr/article/doWrite")
 	@ResponseBody
-	public String doAdd(HttpServletRequest req, String title, String body) {
+	public String doAdd(HttpServletRequest req, String title, String body, String replaceUri) {
 		
 		Rq rq = (Rq)req.getAttribute("rq");
 		
@@ -46,9 +46,12 @@ public class UsrArticleController {
 		ResultData<Integer> writeArticleRd = articleService.writeArticle(title, body, rq.getLoginedMemberId());
 
 		int id = (int) writeArticleRd.getData1();
-		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
+
+		if (Ut.isEmpty(replaceUri)) {
+			replaceUri = Ut.f("../article/detail?id=%d", id);
+		}
 		
-		return Ut.jsReplace("게시물이 작성되었습니다.", Ut.f("detail?id=%d", id));
+		return Ut.jsReplace(Ut.f("%d번 글이 작성되었습니다.", id), replaceUri);
 	}
 
 	@RequestMapping("/usr/article/list")
@@ -84,15 +87,15 @@ public class UsrArticleController {
 		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
 
 		if(article == null) {
-			return Ut.jsHistoryBack(Ut.f("%d번 게시물은 존재하지 않습니다.", id));
+			return rq.jsHistoryBack(Ut.f("%d번 게시물은 존재하지 않습니다.", id));
 		}
 		
 		if(article.getMemberId() != rq.getLoginedMemberId()) {
-			return Ut.jsHistoryBack("해당 게시물에 대한 권한이 없습니다.");
+			return rq.jsHistoryBack("해당 게시물에 대한 권한이 없습니다.");
 		}
 		
 		articleService.deleteArticle(id);
-		return Ut.jsReplace(Ut.f("%d번 게시물이 삭제되었습니다.", id), "../article/list");
+		return rq.jsReplace(Ut.f("%d번 게시물이 삭제되었습니다.", id), "../article/list");
 	}
 	
 	@RequestMapping("/usr/article/modify")
@@ -126,17 +129,17 @@ public class UsrArticleController {
 		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
 
 		if(article == null) {
-			return Ut.jsHistoryBack(Ut.f("%d번 게시물은 존재하지 않습니다", id));
+			return rq.jsHistoryBack(Ut.f("%d번 게시물은 존재하지 않습니다", id));
 		}
 		
 		ResultData actorCanModifyRd = articleService.actorCanModify(rq.getLoginedMemberId(), article);
 		
 		if(actorCanModifyRd.isFail()) {
-			return Ut.jsHistoryBack(actorCanModifyRd.getMsg());
+			return rq.jsHistoryBack(actorCanModifyRd.getMsg());
 		}
 		
 		articleService.modifyArticle(id, title, body);
 		
-		return Ut.jsReplace(Ut.f("%d번 게시물을 수정했습니다", id), Ut.f("../article/detail?id=%d", id));
+		return rq.jsReplace(Ut.f("%d번 게시물을 수정했습니다", id), Ut.f("../article/detail?id=%d", id));
 	}
 }
