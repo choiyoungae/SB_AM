@@ -39,10 +39,20 @@
 					</a>
 				</li>
 				<li class="hover:underline">
+					<a href="/usr/article/list?boardId=1" class="h-full flex items-center px-3">
+						<span>NOTICE</span>
+					</a>
+				</li>
+				<li class="hover:underline">
+					<a href="/usr/article/list?boardId=2" class="h-full flex items-center px-3">
+						<span>FREE</span>
+					</a>
+				</li>
+				<!-- <li class="hover:underline">
 					<a href="/usr/article/list" class="h-full flex items-center px-3">
 						<span>LIST</span>
 					</a>
-				</li>
+				</li> -->
 				<li class="hover:underline">
 					<c:choose>
 					    <c:when test="${sessionScope.loginedMemberId eq null}">

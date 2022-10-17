@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cya.exam.demo.service.ArticleService;
+import com.cya.exam.demo.service.BoardService;
 import com.cya.exam.demo.util.Ut;
 import com.cya.exam.demo.vo.Article;
+import com.cya.exam.demo.vo.Board;
 import com.cya.exam.demo.vo.ResultData;
 import com.cya.exam.demo.vo.Rq;
 
@@ -22,8 +24,9 @@ public class UsrArticleController {
 
 	@Autowired // 의존성 주입 관련
 	private ArticleService articleService;
-
-	// 액션메서드
+	@Autowired
+	private BoardService boardService;
+	
 	@RequestMapping("/usr/article/write")
 	public String showAdd(HttpSession httpSession) {
 		
@@ -55,13 +58,20 @@ public class UsrArticleController {
 	}
 
 	@RequestMapping("/usr/article/list")
-	public String showList(HttpServletRequest req, Model model) {
+	public String showList(HttpServletRequest req, Model model, int boardId) {
+		
+		Board board = boardService.getBoardById(boardId);
 		
 		Rq rq = (Rq)req.getAttribute("rq");
 
 		List<Article> articles = articleService.getForPrintArticles(rq.getLoginedMemberId());
 		
+		if(board == null) {
+			return rq.jsHistoryBackOnView(Ut.f("%d번은 존재하지 않는 게시판입니다.", boardId));
+		}
+
 		model.addAttribute("articles", articles);
+		model.addAttribute("board", board);
 
 		return "usr/article/list";
 	}
