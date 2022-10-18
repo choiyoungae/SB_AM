@@ -7,6 +7,7 @@
 <section class="mt-8 text-xl">
 	<div class="container mx-auto px-3">
 	<div><a class="float-right mb-2 btn btn-active btn-ghost" href="../article/write">게시물 작성하기</a></div>
+		<div>${articlesCount }개</div>
 		<div class="table-box-type-1">
 			<table class="table w-full">
 				<colgroup>
