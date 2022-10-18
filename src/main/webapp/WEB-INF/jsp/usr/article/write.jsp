@@ -15,13 +15,22 @@
 				
 				<tbody>
 					<tr>
+						<th>게시판</th>
+						<td>
+							<select name="boardId">
+						        <option value="1">공지사항</option>
+						        <option value="2">자유</option>
+						    </select>
+						</td>
+					</tr>
+					<tr>
 						<th>제목</th>
 						<td>
 							<input class="w-96" type="text" name="title" placeholder="제목을 입력해주세요" />
 						</td>
 					</tr>
 					<tr>
-						<th>비밀번호</th>
+						<th>내용</th>
 						<td>
 							<input class="w-96" type="text" name="body" placeholder="내용을 입력해주세요" />
 						</td>

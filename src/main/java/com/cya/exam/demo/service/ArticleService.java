@@ -50,8 +50,8 @@ public class ArticleService {
 		return articles;
 	}
 	
-	public ResultData<Integer> writeArticle(String title, String body, int loginedMemberId) {
-		articleRepository.writeArticle(title, body, loginedMemberId);
+	public ResultData<Integer> writeArticle(int boardId, String title, String body, int loginedMemberId) {
+		articleRepository.writeArticle(boardId, title, body, loginedMemberId);
 		
 		int id = articleRepository.getLastInsertId();
 

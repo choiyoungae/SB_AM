@@ -37,7 +37,7 @@ public class UsrArticleController {
 	
 	@RequestMapping("/usr/article/doWrite")
 	@ResponseBody
-	public String doAdd(String title, String body, String replaceUri) {
+	public String doAdd(int boardId, String title, String body, String replaceUri) {
 		
 		if (Ut.isEmpty(title)) {
 			return Ut.jsHistoryBack("제목을 입력해주세요");
@@ -46,7 +46,7 @@ public class UsrArticleController {
 			return Ut.jsHistoryBack("내용을 입력해주세요");
 		}
 
-		ResultData<Integer> writeArticleRd = articleService.writeArticle(title, body, rq.getLoginedMemberId());
+		ResultData<Integer> writeArticleRd = articleService.writeArticle(boardId, title, body, rq.getLoginedMemberId());
 
 		int id = (int) writeArticleRd.getData1();
 
