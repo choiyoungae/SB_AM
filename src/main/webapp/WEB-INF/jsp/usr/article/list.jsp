@@ -27,14 +27,12 @@
 				
 				<tbody>
 					<c:forEach var="article" items="${articles }">
-						<c:if test="${article.boardId == board.id }">
 						<tr class="hover">
 							<td>${article.id }</td>
 							<td>${article.regDate.substring(0,10) }</td>
 							<td><a href="../article/detail?id=${article.id }">${article.title }</a></td>
 							<td>${article.extra__writerName }</td>
 						</tr>
-						</c:if>
 					</c:forEach>
 				</tbody>
 			</table>
