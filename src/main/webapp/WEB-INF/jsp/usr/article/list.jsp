@@ -49,7 +49,7 @@
 				<!-- 페이지 번호의 끝을 지정 -->
 				<c:set var="endPageNum" value="${page + pageMenuLen <= pagesCount ? page + pageMenuLen : pagesCount }" />
 				<c:if test="${startPageNum != 1 }">
-					<a class="pageChangeBtn left" href="../article/list?boardId=${param.boardId }&page=${1 }">◀◀</a>
+					<a class="pageChangeBtn left" href="../article/list?boardId=${param.boardId }&page=${page - pageMenuLen < 1 ? 1 : page - pageMenuLen }">◀◀</a>
 				</c:if>
 				<!-- 페이지 번호 표시 -->
 				<c:forEach var="i" begin="${startPageNum }" end="${endPageNum }" step="1">
@@ -60,7 +60,7 @@
 					</a>
 				</c:forEach>
 				<c:if test="${endPageNum != pagesCount }">
-					<a class="pageChangeBtn right" href="../article/list?boardId=${param.boardId }&page=${pagesCount }">▶▶</a>
+					<a class="pageChangeBtn right" href="../article/list?boardId=${param.boardId }&page=${page + pageMenuLen > pageCount ? pageCount : page + pageMenuLen }">▶▶</a>
 				</c:if>
 			</div>
 		</div>
