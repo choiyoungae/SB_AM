@@ -70,14 +70,14 @@ public class UsrArticleController {
 
 		int itemsInAPage = 10;
 
-		List<Article> articles = articleService.getForPrintArticles(rq.getLoginedMemberId(), boardId, itemsInAPage,
-				page);
+		List<Article> articles = articleService.getForPrintArticles(rq.getLoginedMemberId(), boardId, itemsInAPage, page);
 		
 		int articlesCount = articleService.getArticlesCount(boardId);
 
 		model.addAttribute("articles", articles);
 		model.addAttribute("board", board);
 		model.addAttribute("articlesCount", articlesCount);
+		model.addAttribute("pageCount", Math.ceil((double)articlesCount/itemsInAPage));
 
 		return "usr/article/list";
 	}

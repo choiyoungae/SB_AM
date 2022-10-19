@@ -32,11 +32,16 @@ html > body {
 	color: grey;
 }
 .btn-text-link:hover {
-	color: green;
 	text-decoration: underline;
+	color: #333;
 }
 
 /* 커스텀 */
 body {
 	min-width: 800px;
+}
+.btn-group .btn-active {
+	background-color: #d3d4d7;
+	border: 0;
+	color: black;
 }
