@@ -6,9 +6,23 @@
 
 <section class="mt-8 text-xl">
 	<div class="container mx-auto px-3">
-		<div class="float-left">${articlesCount }개</div>
-		<div>
-			<a class="float-right mb-2 btn btn-active btn-ghost" href="../article/write">게시물 작성하기</a>
+		<div class="flex justify-between items-center">
+			<div>${articlesCount }개</div>
+			<div>
+				<form class="table-box-type-1" method="POST" action="../article/list">
+					<input type="hidden" name="boardId" value="${param.boardId }" />
+					<select class="select select-bordered lh-48px" name="searchKeywordTypeCode">
+						<option disabled>검색할 항목을 선택해주세요.</option>
+						<option value="title">제목</option>
+						<option value="body">내용</option>
+					</select>
+					<input class="w-96 searchInput lh-48px" type="text" name="searchKeyword" placeholder="검색할 내용을 입력해주세요" />
+					<button class="btn btn-ghost lh-48px" type="submit" value="검색" />검색</button>
+				</form>
+			</div>
+			<div>
+				<a class="mb-2 btn btn-active btn-ghost" href="../article/write">게시물 작성하기</a>
+			</div>
 		</div>
 		<div class="table-box-type-1">
 			<table class="table w-full">
@@ -37,6 +51,11 @@
 							<td>${article.extra__writerName }</td>
 						</tr>
 					</c:forEach>
+					<c:if test="${articles.size() == 0 }">
+						<tr>
+							<td colspan="4">게시글이 존재하지 않습니다.</td>
+						</tr>
+					</c:if>
 				</tbody>
 			</table>
 		</div>

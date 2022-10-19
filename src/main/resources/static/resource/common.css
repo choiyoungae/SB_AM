@@ -40,6 +40,9 @@ html > body {
 body {
 	min-width: 800px;
 }
+.lh-48px {
+	line-height: 48px;
+}
 .btn-group .btn-active {
 	background-color: #d3d4d7;
 	border: 0;
@@ -54,4 +57,14 @@ body {
 }
 .pageChangeBtn.right {
 	margin-left: 15px;
+}
+.searchInput {
+	line-height: 46px;
+	background-color: #d3d4d7;
+	padding-left: 10px;
+	box-sizing: border-box;
+	border-radius: 5px;
+}
+.searchInput:focus {
+	outline: none;
 }

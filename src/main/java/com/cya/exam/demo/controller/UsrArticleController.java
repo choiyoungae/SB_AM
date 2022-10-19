@@ -60,7 +60,9 @@ public class UsrArticleController {
 
 	@RequestMapping("/usr/article/list")
 	public String showList(Model model, @RequestParam(defaultValue = "1") int boardId,
-			@RequestParam(defaultValue = "1") int page) {
+			@RequestParam(defaultValue = "1") int page,
+			@RequestParam(defaultValue = "title, body") String searchKeywordTypeCode,
+			@RequestParam(defaultValue = "") String searchKeyword) {
 
 		Board board = boardService.getBoardById(boardId);
 		
@@ -70,9 +72,9 @@ public class UsrArticleController {
 
 		int itemsInAPage = 10;
 
-		List<Article> articles = articleService.getForPrintArticles(rq.getLoginedMemberId(), boardId, itemsInAPage, page);
+		List<Article> articles = articleService.getForPrintArticles(rq.getLoginedMemberId(), boardId, itemsInAPage, page, searchKeywordTypeCode, searchKeyword);
 		
-		int articlesCount = articleService.getArticlesCount(boardId);
+		int articlesCount = articleService.getArticlesCount(boardId, searchKeywordTypeCode, searchKeyword);
 
 		model.addAttribute("articles", articles);
 		model.addAttribute("board", board);
@@ -82,7 +84,7 @@ public class UsrArticleController {
 
 		return "usr/article/list";
 	}
-
+	
 	@RequestMapping("/usr/article/detail")
 	public String showDetail(Model model, int id) {
 
