@@ -40,8 +40,10 @@ public class ArticleService {
 		return article;
 	}
 
-	public List<Article> getForPrintArticles(int actorId, int boardId) {
-		List<Article> articles = articleRepository.getArticles(boardId);
+	public List<Article> getForPrintArticles(int actorId, int boardId, int itemsInAPage, int page) {
+		int limitStart = (page - 1) * itemsInAPage;
+		int limitTake = itemsInAPage;
+		List<Article> articles = articleRepository.getArticles(boardId, limitStart, limitTake);
 		
 		for (Article article : articles) {
 			updateForPrintData(actorId, article);
