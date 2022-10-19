@@ -77,7 +77,8 @@ public class UsrArticleController {
 		model.addAttribute("articles", articles);
 		model.addAttribute("board", board);
 		model.addAttribute("articlesCount", articlesCount);
-		model.addAttribute("pageCount", Math.ceil((double)articlesCount/itemsInAPage));
+		model.addAttribute("pagesCount", (int)Math.ceil((double)articlesCount/itemsInAPage));
+		model.addAttribute("page", page);
 
 		return "usr/article/list";
 	}

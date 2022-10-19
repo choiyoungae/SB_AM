@@ -42,13 +42,26 @@
 		</div>
 		<div class="mt-3 flex justify-center">
 			<div class="btn-group">
-				<c:forEach var="i" begin="1" end="${pageCount }" step="1">
+				<!-- 현재 페이지 번호의 앞뒤에 몇 개의 페이지 번호를 보여줄지 결정 -->
+				<c:set var="pageMenuLen" value="4" />
+				<!-- 페이지 번호의 시작을 지정 -->
+				<c:set var="startPageNum" value="${page - pageMenuLen >= 1 ? page - pageMenuLen : 1 }" />
+				<!-- 페이지 번호의 끝을 지정 -->
+				<c:set var="endPageNum" value="${page + pageMenuLen <= pagesCount ? page + pageMenuLen : pagesCount }" />
+				<c:if test="${startPageNum != 1 }">
+					<a class="pageChangeBtn left" href="../article/list?boardId=${param.boardId }&page=${1 }">◀◀</a>
+				</c:if>
+				<!-- 페이지 번호 표시 -->
+				<c:forEach var="i" begin="${startPageNum }" end="${endPageNum }" step="1">
 					<a href="../article/list?boardId=${param.boardId }&page=${i }">
-						<p class="btn btn-ghost ${param.page == i ? 'btn-active' : '' }">
+						<p class="btn btn-ghost ${page == i ? 'btn-active' : '' }">
 							${i }
 						</p>
 					</a>
 				</c:forEach>
+				<c:if test="${endPageNum != pagesCount }">
+					<a class="pageChangeBtn right" href="../article/list?boardId=${param.boardId }&page=${pagesCount }">▶▶</a>
+				</c:if>
 			</div>
 		</div>
 	</div>

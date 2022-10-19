@@ -45,3 +45,13 @@ body {
 	border: 0;
 	color: black;
 }
+.pageChangeBtn {
+	line-height: 48px;
+	font-size: 14px;
+}
+.pageChangeBtn.left {
+	margin-right: 10px;
+}
+.pageChangeBtn.right {
+	margin-left: 10px;
+}
