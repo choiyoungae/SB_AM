@@ -94,4 +94,12 @@
 			</choose>
 		</if>
 	</select>
+	
+	<update id="increaseHit">
+		UPDATE article
+		<set>
+			hit = hit + 1
+		</set>
+		WHERE id = #{id}
+	</update>
 </mapper>

@@ -7,7 +7,7 @@
 <section class="mt-8 text-xl">
 	<div class="container mx-auto px-3">
 		<div class="flex justify-between items-center">
-			<div>${articlesCount }개</div>
+			<div class="articleCountNum">${articlesCount }개</div>
 			<div>
 				<form class="table-box-type-1" method="POST" action="../article/list">
 					<input type="hidden" name="boardId" value="${param.boardId }" />
@@ -31,6 +31,7 @@
 					<col width="140" />
 					<col />
 					<col width="140" />
+					<col width="80" />
 				</colgroup>
 				
 				<thead>
@@ -39,6 +40,7 @@
 						<th>날짜</th>
 						<th>제목</th>
 						<th>작성자</th>
+						<th>조회수</th>
 					</tr>
 				</thead>
 				
@@ -49,11 +51,12 @@
 							<td>${article.regDate.substring(0,10) }</td>
 							<td><a href="../article/detail?id=${article.id }">${article.title }</a></td>
 							<td>${article.extra__writerName }</td>
+							<td>${article.hit }</td>
 						</tr>
 					</c:forEach>
 					<c:if test="${articles.size() == 0 }">
 						<tr>
-							<td colspan="4">게시글이 존재하지 않습니다.</td>
+							<td colspan="5">게시글이 존재하지 않습니다.</td>
 						</tr>
 					</c:if>
 				</tbody>

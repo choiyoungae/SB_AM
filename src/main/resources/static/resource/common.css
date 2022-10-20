@@ -58,6 +58,9 @@ body {
 .pageChangeBtn.right {
 	margin-left: 15px;
 }
+.articleCountNum {
+	width: 100px;
+}
 .searchInput {
 	line-height: 46px;
 	background-color: #d3d4d7;
