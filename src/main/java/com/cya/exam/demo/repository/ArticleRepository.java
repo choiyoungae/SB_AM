@@ -3,6 +3,7 @@ package com.cya.exam.demo.repository;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 
 import com.cya.exam.demo.vo.Article;
 
@@ -23,7 +24,16 @@ public interface ArticleRepository {
 
 	public int getArticlesCount(int boardId, String searchKeywordTypeCode, String searchKeyword);
 
-	public void increaseHit(int id);
+	public int increaseHitCount(int id);
+
+	@Select("""
+			<script>
+			SELECT hitCount
+			FROM article
+			WHERE id = #{id}
+			</script>
+			""")
+	public int getArticleHitCount(int id);
 
 	
 }

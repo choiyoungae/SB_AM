@@ -7,14 +7,15 @@
 <section class="mt-8 text-xl">
 	<div class="container mx-auto px-3">
 		<div class="flex justify-between items-center">
-			<div class="articleCountNum">${articlesCount }개</div>
+			<div class="articleCountNum">게시물 갯수 : ${articlesCount }개</div>
 			<div>
 				<form class="table-box-type-1" method="POST" action="../article/list">
 					<input type="hidden" name="boardId" value="${param.boardId }" />
 					<select class="select select-bordered lh-48px" name="searchKeywordTypeCode">
-						<option disabled>검색할 항목을 선택해주세요.</option>
+						<option disabled>검색</option>
 						<option value="title">제목</option>
 						<option value="body">내용</option>
+						<option value="title,body">제목 + 내용</option>
 					</select>
 					<input class="w-96 searchInput lh-48px" type="text" name="searchKeyword" placeholder="검색할 내용을 입력해주세요" value="${param.searchKeyword }" />
 					<button class="btn btn-ghost lh-48px" type="submit" value="검색" />검색</button>
@@ -51,7 +52,7 @@
 							<td>${article.regDate.substring(0,10) }</td>
 							<td><a href="../article/detail?id=${article.id }">${article.title }</a></td>
 							<td>${article.extra__writerName }</td>
-							<td>${article.hit }</td>
+							<td>${article.hitCount }</td>
 						</tr>
 					</c:forEach>
 					<c:if test="${articles.size() == 0 }">

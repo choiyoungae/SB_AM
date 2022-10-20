@@ -95,10 +95,10 @@
 		</if>
 	</select>
 	
-	<update id="increaseHit">
+	<update id="increaseHitCount">
 		UPDATE article
 		<set>
-			hit = hit + 1
+			hitCount = hitCount + 1
 		</set>
 		WHERE id = #{id}
 	</update>
