@@ -16,7 +16,7 @@
 						<option value="title">제목</option>
 						<option value="body">내용</option>
 					</select>
-					<input class="w-96 searchInput lh-48px" type="text" name="searchKeyword" placeholder="검색할 내용을 입력해주세요" />
+					<input class="w-96 searchInput lh-48px" type="text" name="searchKeyword" placeholder="검색할 내용을 입력해주세요" value="${param.searchKeyword }" />
 					<button class="btn btn-ghost lh-48px" type="submit" value="검색" />검색</button>
 				</form>
 			</div>
@@ -70,22 +70,26 @@
 				<c:set var="startPageNum" value="${page - pageMenuLen >= 1 ? page - pageMenuLen : 1 }" />
 				<!-- 페이지 번호의 끝을 지정 -->
 				<c:set var="endPageNum" value="${page + pageMenuLen <= pagesCount ? page + pageMenuLen : pagesCount }" />
+				<!-- 페이지 주소 설정(검색 결과에 대한 페이지 처리를 위해) -->
+				<c:set var="pageBaseUri" value="?boardId=${param.boardId }" />
+				<c:set var="pageBaseUri" value="${pageBaseUri }&searchKeywordTypeCode=${param.searchKeywordTypeCode }" />
+				<c:set var="pageBaseUri" value="${pageBaseUri }&searchKeyword=${param.searchKeyword }" />
 				
 				<c:if test="${startPageNum != 1 }">
-					<a class="pageChangeBtn left" href="../article/list?boardId=${param.boardId }&page=${1 }">◀◀</a>
-					<a class="pageChangeBtn left" href="../article/list?boardId=${param.boardId }&page=${page - pageMenuLen < 1 ? 1 : page - pageMenuLen }">◀</a>
+					<a class="pageChangeBtn left" href="${pageBaseUri }&page=${1 }">◀◀</a>
+					<a class="pageChangeBtn left" href="${pageBaseUri }&page=${page - pageMenuLen < 1 ? 1 : page - pageMenuLen }">◀</a>
 				</c:if>
 				<!-- 페이지 번호 표시 -->
 				<c:forEach var="i" begin="${startPageNum }" end="${endPageNum }" step="1">
-					<a href="../article/list?boardId=${param.boardId }&page=${i }">
+					<a href="${pageBaseUri }&page=${i }">
 						<p class="btn btn-ghost ${page == i ? 'btn-active' : '' }">
 							${i }
 						</p>
 					</a>
 				</c:forEach>
 				<c:if test="${endPageNum != pagesCount }">
-					<a class="pageChangeBtn right" href="../article/list?boardId=${param.boardId }&page=${page + pageMenuLen > pagesCount ? pagesCount : page + pageMenuLen }">▶</a>
-					<a class="pageChangeBtn right" href="../article/list?boardId=${param.boardId }&page=${pagesCount }">▶▶</a>
+					<a class="pageChangeBtn right" href="${pageBaseUri }&page=${page + pageMenuLen > pagesCount ? pagesCount : page + pageMenuLen }">▶</a>
+					<a class="pageChangeBtn right" href="${pageBaseUri }&page=${pagesCount }">▶▶</a>
 				</c:if>
 			</div>
 		</div>
