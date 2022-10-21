@@ -52,7 +52,9 @@
 							<td>${article.regDate.substring(0,10) }</td>
 							<td><a href="../article/detail?id=${article.id }">${article.title }</a></td>
 							<td>${article.extra__writerName }</td>
-							<td>${article.hitCount }</td>
+							<td>
+								<span class='article-list__hit-count'>${article.hitCount }</span>
+							</td>
 						</tr>
 					</c:forEach>
 					<c:if test="${articles.size() == 0 }">
