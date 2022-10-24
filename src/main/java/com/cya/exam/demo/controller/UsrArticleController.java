@@ -170,4 +170,21 @@ public class UsrArticleController {
 
 		return rd;
 	}
+	
+	@RequestMapping("/usr/article/doIncreaseReactionCountRd")
+	@ResponseBody
+	public ResultData<Integer> doIncreaseReactionCountRd(int id) {
+		ResultData<Integer> increaseHitCountRd = articleService.increaseHitCount(id);
+		
+		if(increaseHitCountRd.isFail()) {
+			return increaseHitCountRd;
+		}
+		
+		ResultData<Integer> rd = ResultData.newData(increaseHitCountRd, "hitCount",
+				articleService.getArticleHitCount(id));
+
+		rd.setData2("id", id);
+
+		return rd;
+	}
 }

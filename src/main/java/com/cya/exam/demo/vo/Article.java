@@ -16,6 +16,8 @@ public class Article {
 	private int memberId;
 	private int boardId;
 	private int hitCount;
+	private int likeCount;
+	private int dislikeCount;
 	
 	private String extra__writerName;
 	private boolean extra__actorCanDelete;
