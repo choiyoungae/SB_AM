@@ -33,6 +33,7 @@
 					<col />
 					<col width="140" />
 					<col width="80" />
+					<col width="80" />
 				</colgroup>
 				
 				<thead>
@@ -42,6 +43,7 @@
 						<th>제목</th>
 						<th>작성자</th>
 						<th>조회수</th>
+						<th>추천</th>
 					</tr>
 				</thead>
 				
@@ -49,12 +51,13 @@
 					<c:forEach var="article" items="${articles }">
 						<tr class="hover">
 							<td>${article.id }</td>
-							<td>${article.regDate.substring(0,10) }</td>
+							<td>${article.getForPrintType1RegDate() }</td>
 							<td><a href="../article/detail?id=${article.id }">${article.title }</a></td>
 							<td>${article.extra__writerName }</td>
 							<td>
 								<span class='article-list__hit-count'>${article.hitCount }</span>
 							</td>
+							<td>${article.extra__goodReactionPoint}</td>
 						</tr>
 					</c:forEach>
 					<c:if test="${articles.size() == 0 }">
