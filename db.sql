@@ -202,6 +202,36 @@ SELECT * FROM article ORDER BY id DESC;
 SELECT * FROM board;
 SELECT * FROM reactionPoint;
 
+/*
+# 방법1
+SELECT A.*, 
+IFNULL(sum(RP.point),0) as extra__sumReactionPoint,
+ifnull(sum(if(RP.point > 0, RP.point, 0)), 0) as extra__goodReactionPoint,
+ifnull(sum(if(RP.point < 0, RP.point, 0)), 0) as extra__badReactionPoint
+from (
+    SELECT A.*, M.name AS extra__writerName
+    FROM article AS A
+    INNER JOIN `member` AS M
+    ON A.memberId = M.id
+    ) as A
+left join reactionPoint as RP
+on RP.relTypeCode = 'article'
+and A.id = RP.relId
+group by A.id
+
+# 방법2_이걸 스프링에서 쓸 때에 대해서는 다시 생각해보기
+SELECT A.*, M.nickname AS extra__writerName, 
+IFNULL(SUM(RP.point),0) AS extra__sumReactionPoint,
+IFNULL(SUM(IF(RP.point > 0, RP.point, 0)), 0) AS extra__goodReactionPoint,
+IFNULL(SUM(IF(RP.point < 0, RP.point, 0)), 0) AS extra__badReactionPoint
+from article as A 
+left join `member` as M
+on A.memberId = M.id
+left join reactionPoint as RP
+on A.id = RP.relId and RP.relTypeCode = 'article'
+group by A.id
+*/
+
 # 게시물 갯수 늘리기
 INSERT INTO article
 (

@@ -28,6 +28,15 @@
 			
 		}, 'json');
 	}
+	
+	function ArticleDetail__increaseGoodReactionPoint() {
+		alert("liked");
+	}
+	
+	function ArticleDetail__increaseBadReactionPoint() {
+		alert("disliked");
+	}
+	
 	$(function() {
 		ArticleDetail__increaseHitCount();
 	})
@@ -40,38 +49,55 @@
 			<table>
 				<colgroup>
 					<col width="200" />
+					<col />
+					<col width="200" />
+					<col />
 				</colgroup>
 				
 				<tbody>
 					<tr>
 						<th>번호</th>
-						<td>${article.id }</td>
+						<td colspan="3">${article.id }</td>
 					</tr>
 					<tr>
 						<th>작성날짜</th>
-						<td>${article.regDate }</td>
+						<td colspan="3">${article.regDate }</td>
 					</tr>
 					<tr>
 						<th>수정날짜</th>
-						<td>${article.updateDate }</td>
+						<td colspan="3">${article.updateDate }</td>
 					</tr>
 					<tr>
 						<th>작성자</th>
-						<td>${article.extra__writerName }</td>
+						<td colspan="3">${article.extra__writerName }</td>
 					</tr>
 					<tr>
 						<th>조회수</th>
-						<td>
+						<td colspan="3">
 							<span class='article-detail__hit-count'>${article.hitCount }</span>
 						</td>
 					</tr>
 					<tr>
 						<th>제목</th>
-						<td>${article.title }</td>
+						<td colspan="3">${article.title }</td>
 					</tr>
 					<tr>
 						<th>내용</th>
-						<td>${article.body }</td>
+						<td colspan="3">${article.body }</td>
+					</tr>
+					<tr>
+						<th>
+							<button type="button" onclick="ArticleDetail__increaseGoodReactionPoint();">
+								<i class="fa-solid fa-heart"></i>
+							</button>
+						</th>
+						<td>${article.extra__goodReactionPoint }</td>
+						<th>
+							<button type="button" onclick="ArticleDetail__increaseBadReactionPoint();">
+								<i class="fa-solid fa-heart-crack"></i>
+							</button>
+						</th>
+						<td>${-article.extra__badReactionPoint }</td>
 					</tr>
 				</tbody>
 			</table>
