@@ -29,14 +29,6 @@
 		}, 'json');
 	}
 	
-	function ArticleDetail__increaseGoodReactionPoint() {
-		alert("liked");
-	}
-	
-	function ArticleDetail__increaseBadReactionPoint() {
-		alert("disliked");
-	}
-	
 	$(function() {
 		ArticleDetail__increaseHitCount();
 	})
@@ -49,55 +41,50 @@
 			<table>
 				<colgroup>
 					<col width="200" />
-					<col />
-					<col width="200" />
-					<col />
 				</colgroup>
 				
 				<tbody>
 					<tr>
 						<th>번호</th>
-						<td colspan="3">${article.id }</td>
+						<td>${article.id }</td>
 					</tr>
 					<tr>
 						<th>작성날짜</th>
-						<td colspan="3">${article.regDate }</td>
+						<td>${article.regDate }</td>
 					</tr>
 					<tr>
 						<th>수정날짜</th>
-						<td colspan="3">${article.updateDate }</td>
+						<td>${article.updateDate }</td>
 					</tr>
 					<tr>
 						<th>작성자</th>
-						<td colspan="3">${article.extra__writerName }</td>
+						<td>${article.extra__writerName }</td>
 					</tr>
 					<tr>
 						<th>조회수</th>
-						<td colspan="3">
+						<td>
 							<span class='article-detail__hit-count'>${article.hitCount }</span>
 						</td>
 					</tr>
 					<tr>
 						<th>제목</th>
-						<td colspan="3">${article.title }</td>
+						<td>${article.title }</td>
 					</tr>
 					<tr>
 						<th>내용</th>
-						<td colspan="3">${article.body }</td>
+						<td>${article.body }</td>
 					</tr>
 					<tr>
-						<th>
-							<button type="button" onclick="ArticleDetail__increaseGoodReactionPoint();">
-								<i class="fa-solid fa-heart"></i>
-							</button>
-						</th>
-						<td>${article.extra__goodReactionPoint }</td>
-						<th>
-							<button type="button" onclick="ArticleDetail__increaseBadReactionPoint();">
-								<i class="fa-solid fa-heart-crack"></i>
-							</button>
-						</th>
-						<td>${-article.extra__badReactionPoint }</td>
+						<th>추천</th>
+						<td>
+							<span>${article.extra__sumReactionPoint }</span>
+							<c:if test="${actorCanMakeReaction}">
+								<span>&nbsp;</span>
+								<button class="btn btn-outline btn-xs">좋아요 👍</button>
+								<span>&nbsp;</span>
+								<button class="btn btn-outline btn-xs">싫어요 👎</button>
+							</c:if>
+						</td>
 					</tr>
 				</tbody>
 			</table>

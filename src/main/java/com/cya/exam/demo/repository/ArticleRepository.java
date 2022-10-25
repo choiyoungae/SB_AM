@@ -2,6 +2,7 @@ package com.cya.exam.demo.repository;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -28,12 +29,23 @@ public interface ArticleRepository {
 
 	@Select("""
 			<script>
-			SELECT hitCount
-			FROM article
-			WHERE id = #{id}
+				SELECT hitCount
+				FROM article
+				WHERE id = #{id}
 			</script>
 			""")
 	public int getArticleHitCount(int id);
+	
+	@Select("""
+			<script>
+				SELECT IFNULL(SUM(RP.point),0) AS s
+				FROM reactionPoint AS RP
+				WHERE RP.relTypeCode = 'article'
+				AND RP.relId = #{id}
+				AND RP.memberId = #{memberId}
+			</script>
+						""")
+	public int getSumReactionPointByMemberId(int memberId, int id);
 
 	
 }
