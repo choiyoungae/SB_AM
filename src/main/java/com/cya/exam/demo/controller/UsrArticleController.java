@@ -23,7 +23,7 @@ import com.cya.exam.demo.vo.Rq;
 @Controller
 public class UsrArticleController {
 
-	@Autowired // 의존성 주입 관련
+	@Autowired
 	private ArticleService articleService;
 	@Autowired
 	private BoardService boardService;

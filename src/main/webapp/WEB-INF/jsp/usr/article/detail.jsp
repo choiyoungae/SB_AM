@@ -29,6 +29,24 @@
 		}, 'json');
 	}
 	
+	function ArticleDetail__increaseGoodReactionPoint() {
+		$.get('../reaction/doIncreaseGoodReactionPointRd', {
+			id : params.id,
+			ajaxMode : 'Y'
+		}, function(data) {
+			$('.article-detail__sumReactionPoint').empty().html(data.data1);
+		}, 'json');
+	}
+	
+	function ArticleDetail__increaseBadReactionPoint() {
+		$.get('../reaction/doIncreaseBadReactionPointRd', {
+			id : params.id,
+			ajaxMode : 'Y'
+		}, function(data) {
+			$('.article-detail__sumReactionPoint').empty().html(data.data1);
+		}, 'json');
+	}
+	
 	$(function() {
 		ArticleDetail__increaseHitCount();
 	})
@@ -77,13 +95,20 @@
 					<tr>
 						<th>추천</th>
 						<td>
-							<span>${article.extra__sumReactionPoint }</span>
-							<c:if test="${actorCanMakeReaction}">
+							<span class='article-detail__sumReactionPoint'>${article.extra__sumReactionPoint }</span>
+							<!-- <c:if test="${actorCanMakeReaction}">
 								<span>&nbsp;</span>
-								<button class="btn btn-outline btn-xs">좋아요 👍</button>
+								<button class="btn btn-outline btn-xs"
+								onclick="ArticleDetail__increaseGoodReactionPoint()">좋아요 👍</button>
 								<span>&nbsp;</span>
 								<button class="btn btn-outline btn-xs">싫어요 👎</button>
-							</c:if>
+							</c:if> -->
+							<span>&nbsp;</span>
+							<button class="btn btn-outline btn-xs"
+							onclick="ArticleDetail__increaseGoodReactionPoint()">좋아요 👍</button>
+							<span>&nbsp;</span>
+							<button class="btn btn-outline btn-xs"
+							onclick="ArticleDetail__increaseBadReactionPoint()">싫어요 👎</button>
 						</td>
 					</tr>
 				</tbody>
