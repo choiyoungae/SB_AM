@@ -77,7 +77,7 @@
 					<tr>
 						<th>추천</th>
 						<td>
-							<span>${article.extra__sumReactionPoint }</span>
+							<span>${article.goodReactionPoint - article.badReactionPoint }</span>
 							<c:if test="${actorCanMakeReaction}">
 								<span>&nbsp;</span>
 								<button class="btn btn-outline btn-xs">좋아요 👍</button>

@@ -57,7 +57,7 @@
 							<td>
 								<span class='article-list__hit-count'>${article.hitCount }</span>
 							</td>
-							<td>${article.extra__goodReactionPoint}</td>
+							<td>${article.goodReactionPoint}</td>
 						</tr>
 					</c:forEach>
 					<c:if test="${articles.size() == 0 }">
