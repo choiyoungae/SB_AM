@@ -2,7 +2,6 @@ package com.cya.exam.demo.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +23,7 @@ import com.cya.exam.demo.vo.Rq;
 @Controller
 public class UsrArticleController {
 
-	@Autowired // 의존성 주입 관련
+	@Autowired
 	private ArticleService articleService;
 	@Autowired
 	private BoardService boardService;
