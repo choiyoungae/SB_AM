@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cya.exam.demo.service.ArticleService;
 import com.cya.exam.demo.service.BoardService;
+import com.cya.exam.demo.service.ReactionPointService;
 import com.cya.exam.demo.util.Ut;
 import com.cya.exam.demo.vo.Article;
 import com.cya.exam.demo.vo.Board;
@@ -27,6 +28,8 @@ public class UsrArticleController {
 	private ArticleService articleService;
 	@Autowired
 	private BoardService boardService;
+	@Autowired
+	private ReactionPointService reactionPointService;
 	@Autowired
 	private Rq rq;
 	
@@ -93,8 +96,12 @@ public class UsrArticleController {
 		model.addAttribute("article", article);
 		
 		boolean actorCanMakeReaction = articleService.actorCanMakeReaction(rq.getLoginedMemberId(), id);
+		boolean actorCanMakeGoodReaction = reactionPointService.actorCanMakeCertainReaction(rq.getLoginedMemberId(), id, "good");
+		boolean actorCanMakeBadReaction = reactionPointService.actorCanMakeCertainReaction(rq.getLoginedMemberId(), id, "bad");
 
 		model.addAttribute("actorCanMakeReaction", actorCanMakeReaction);
+		model.addAttribute("actorCanMakeGoodReaction", actorCanMakeGoodReaction);
+		model.addAttribute("actorCanMakeBadReaction", actorCanMakeBadReaction);
 
 		return "usr/article/detail";
 	}

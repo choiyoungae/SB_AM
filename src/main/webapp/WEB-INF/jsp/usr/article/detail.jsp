@@ -30,6 +30,9 @@
 	}
 	
 	function ArticleDetail__increaseGoodReactionPoint() {
+		if('${actorCanMakeGoodReaction}' == false) {
+			break;
+		}
 		$.get('../reaction/doIncreaseGoodReactionPointRd', {
 			id : params.id,
 			ajaxMode : 'Y'
@@ -39,6 +42,9 @@
 	}
 	
 	function ArticleDetail__increaseBadReactionPoint() {
+		if('${actorCanMakeBadReaction}' == false) {
+			break;
+		}
 		$.get('../reaction/doIncreaseBadReactionPointRd', {
 			id : params.id,
 			ajaxMode : 'Y'

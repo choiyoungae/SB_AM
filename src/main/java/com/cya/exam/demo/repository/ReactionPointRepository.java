@@ -51,6 +51,18 @@ public interface ReactionPointRepository {
 				GROUP BY A.id) AS myA
 			""")
 	int getArticleSumReactionPoint(int id);
+
+	@Select("""
+			<script>
+			SELECT COUNT(RP.point)
+			FROM reactionPoint AS RP
+			WHERE RP.relTypeCode = 'article'
+			AND RP.relId = #{id}
+			AND RP.memberId = #{loginedMemberId}
+			AND RP.point = #{reaction};
+			</script>
+			""")
+	int actorCanMakeCertainReaction(int loginedMemberId, int id, int reaction);
 	
 	
 }

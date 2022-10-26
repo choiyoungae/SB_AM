@@ -39,5 +39,16 @@ public class ReactionPointService {
 
 		return ResultData.from("S-1", "별로예요 증가", "affectedRowsCount", affectedRowsCount);
 	}
+
+	public boolean actorCanMakeCertainReaction(int loginedMemberId, int id, String reaction) {
+		
+		if(reaction.equals("good")) {
+			return reactionPointRepository.actorCanMakeCertainReaction(loginedMemberId, id, 1) == 0;
+		}
+		if(reaction.equals("bad")) {
+			return reactionPointRepository.actorCanMakeCertainReaction(loginedMemberId, id, -1) == 0;
+		}
+		return false;
+	}
 	
 }
