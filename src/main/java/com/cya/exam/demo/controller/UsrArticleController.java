@@ -95,8 +95,12 @@ public class UsrArticleController {
 		model.addAttribute("article", article);
 		
 		boolean actorCanMakeReaction = reactionPointService.actorCanMakeReaction(rq.getLoginedMemberId(), "article", id);
+		boolean actorCanMakeGoodReaction = reactionPointService.actorCanMakeGoodReaction(rq.getLoginedMemberId(), "article", id);
+		boolean actorCanMakeBadReaction = reactionPointService.actorCanMakeBadReaction(rq.getLoginedMemberId(), "article", id);
 
 		model.addAttribute("actorCanMakeReaction", actorCanMakeReaction);
+		model.addAttribute("actorCanMakeGoodReaction", actorCanMakeGoodReaction);
+		model.addAttribute("actorCanMakeBadReaction", actorCanMakeBadReaction);
 
 		return "usr/article/detail";
 	}

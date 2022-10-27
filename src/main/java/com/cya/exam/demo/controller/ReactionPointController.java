@@ -19,10 +19,18 @@ public class ReactionPointController {
 	@ResponseBody
 	public String doGoodReaction(String relTypeCode, int relId, String replaceUri) {
 		
-		boolean actorCanMakeReaction = reactionPointService.actorCanMakeReaction(rq.getLoginedMemberId(), relTypeCode, relId);
+		boolean actorCanMakeGoodReaction = reactionPointService.actorCanMakeGoodReaction(rq.getLoginedMemberId(), relTypeCode, relId);
+		boolean actorCanMakeBadReaction = reactionPointService.actorCanMakeBadReaction(rq.getLoginedMemberId(), relTypeCode, relId);
 		
-		if(actorCanMakeReaction == false) {
-			return rq.jsHistoryBackOnView("이미 처리되었습니다.");
+		if(actorCanMakeBadReaction == false) {
+
+			return rq.jsReplace("이미 [별로예요]를 선택하셨습니다.", replaceUri);
+		}
+		
+		if(actorCanMakeGoodReaction == false) {
+			reactionPointService.cancelGoodReactionPoint(rq.getLoginedMemberId(), relTypeCode, relId);
+
+			return rq.jsReplace("좋아요 취소", replaceUri);
 		}
 		
 		reactionPointService.addGoodReactionPoint(rq.getLoginedMemberId(), relTypeCode, relId);
@@ -34,10 +42,18 @@ public class ReactionPointController {
 	@ResponseBody
 	public String doBadReaction(String relTypeCode, int relId, String replaceUri) {
 		
-		boolean actorCanMakeReaction = reactionPointService.actorCanMakeReaction(rq.getLoginedMemberId(), relTypeCode, relId);
+		boolean actorCanMakeGoodReaction = reactionPointService.actorCanMakeGoodReaction(rq.getLoginedMemberId(), relTypeCode, relId);
+		boolean actorCanMakeBadReaction = reactionPointService.actorCanMakeBadReaction(rq.getLoginedMemberId(), relTypeCode, relId);
 		
-		if(actorCanMakeReaction == false) {
-			return rq.jsHistoryBackOnView("이미 처리되었습니다.");
+		if(actorCanMakeGoodReaction == false) {
+
+			return rq.jsReplace("이미 [좋아요]를 선택하셨습니다.", replaceUri);
+		}
+		
+		if(actorCanMakeBadReaction == false) {
+			reactionPointService.cancelBadReactionPoint(rq.getLoginedMemberId(), relTypeCode, relId);
+
+			return rq.jsReplace("별로예요 취소", replaceUri);
 		}
 		
 		reactionPointService.addBadReactionPoint(rq.getLoginedMemberId(), relTypeCode, relId);

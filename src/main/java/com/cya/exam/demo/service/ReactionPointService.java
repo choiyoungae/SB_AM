@@ -46,4 +46,41 @@ public class ReactionPointService {
 		return ResultData.from("S-1", "별로예요 처리 완료");
 	}
 
+	public boolean actorCanMakeGoodReaction(int actorId, String relTypeCode, int relId) {
+		if(actorId == 0) {
+			return false;
+		}
+		
+		return reactionPointRepository.getGoodReactionPointByMemberId(actorId, relTypeCode, relId) == 0;
+	}
+
+	public boolean actorCanMakeBadReaction(int actorId, String relTypeCode, int relId) {
+		if(actorId == 0) {
+			return false;
+		}
+		
+		return reactionPointRepository.getBadReactionPointByMemberId(actorId, relTypeCode, relId) == 0;
+	}
+
+	public void cancelGoodReactionPoint(int actorId, String relTypeCode, int relId) {
+		reactionPointRepository.cancelGoodReactionPoint(actorId, relTypeCode, relId);
+		
+		switch(relTypeCode) {
+		case "article":
+			articleService.decreaseGoodReactionPoint(relId);
+			break;
+		}
+	}
+
+	public void cancelBadReactionPoint(int actorId, String relTypeCode, int relId) {
+		reactionPointRepository.cancelBadReactionPoint(actorId, relTypeCode, relId);
+		
+		switch(relTypeCode) {
+		case "article":
+			articleService.decreaseBadReactionPoint(relId);
+			break;
+		}
+	}
+
+
 }

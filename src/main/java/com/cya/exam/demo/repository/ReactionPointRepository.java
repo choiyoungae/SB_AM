@@ -1,5 +1,6 @@
 package com.cya.exam.demo.repository;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -9,7 +10,7 @@ public interface ReactionPointRepository {
 
 	@Select("""
 			<script>
-				SELECT IFNULL(SUM(RP.point),0) AS s
+				SELECT IFNULL(SUM(RP.point), 0) AS s
 				FROM reactionPoint AS RP
 				WHERE RP.relTypeCode = #{relTypeCode}
 				AND RP.relId = #{relId}
@@ -43,5 +44,51 @@ public interface ReactionPointRepository {
 			</script>
 			""")
 	int addBadReactionPoint(int actorId, String relTypeCode, int relId);
+
+	@Select("""
+			<script>
+				SELECT COUNT(*)
+				FROM reactionPoint AS RP
+				WHERE RP.relTypeCode = #{relTypeCode}
+				AND RP.relId = #{relId}
+				AND RP.memberId = #{actorId}
+				AND RP.`point` = 1;
+			</script>
+						""")
+	int getGoodReactionPointByMemberId(int actorId, String relTypeCode, int relId);
+
+	@Select("""
+			<script>
+				SELECT COUNT(*)
+				FROM reactionPoint AS RP
+				WHERE RP.relTypeCode = #{relTypeCode}
+				AND RP.relId = #{relId}
+				AND RP.memberId = #{actorId}
+				AND RP.`point` = -1;
+			</script>
+						""")
+	int getBadReactionPointByMemberId(int actorId, String relTypeCode, int relId);
+
+	@Delete("""
+			<script>
+				DELETE FROM reactionPoint
+				WHERE relTypeCode = #{relTypeCode}
+				AND relId = #{relId}
+				AND memberId = #{actorId}
+				AND `point` = 1;
+			</script>
+			""")
+	void cancelGoodReactionPoint(int actorId, String relTypeCode, int relId);
+
+	@Delete("""
+			<script>
+				DELETE FROM reactionPoint
+				WHERE relTypeCode = #{relTypeCode}
+				AND relId = #{relId}
+				AND memberId = #{actorId}
+				AND `point` = -1;
+			</script>
+			""")
+	void cancelBadReactionPoint(int actorId, String relTypeCode, int relId);
 
 }

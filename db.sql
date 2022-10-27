@@ -213,13 +213,10 @@ A.badReactionPoint = RP_SUM.badReactionPoint;
 
 #######################################################
 
+SELECT * FROM `member`;
+SELECT * FROM article ORDER BY id DESC;
+SELECT * FROM board;
 SELECT * FROM reactionPoint;
-
-DESC article;
-
-SELECT * FROM article;
-
-SELECT LAST_INSERT_ID();
 
 /*# 게시물 갯수 늘리기
 insert into article
