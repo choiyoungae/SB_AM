@@ -94,13 +94,21 @@ public class UsrArticleController {
 
 		model.addAttribute("article", article);
 		
-		boolean actorCanMakeReaction = reactionPointService.actorCanMakeReaction(rq.getLoginedMemberId(), "article", id);
-		boolean actorCanMakeGoodReaction = reactionPointService.actorCanMakeGoodReaction(rq.getLoginedMemberId(), "article", id);
-		boolean actorCanMakeBadReaction = reactionPointService.actorCanMakeBadReaction(rq.getLoginedMemberId(), "article", id);
+		ResultData actorCanMakeReactionRd = reactionPointService.actorCanMakeReaction(rq.getLoginedMemberId(), "article", id);
+		
+		model.addAttribute("actorCanMakeReactionRd", actorCanMakeReactionRd);
+		model.addAttribute("actorCanMakeReaction", actorCanMakeReactionRd.isSuccess());
 
-		model.addAttribute("actorCanMakeReaction", actorCanMakeReaction);
-		model.addAttribute("actorCanMakeGoodReaction", actorCanMakeGoodReaction);
-		model.addAttribute("actorCanMakeBadReaction", actorCanMakeBadReaction);
+		if (actorCanMakeReactionRd.getResultCode().equals("F-2")) {
+			int sumReactionPointByMemberId = (int) actorCanMakeReactionRd.getData1();
+
+			if (sumReactionPointByMemberId > 0) {
+				model.addAttribute("actorCanCancelGoodReaction", true);
+			} else {
+				model.addAttribute("actorCanCancelBadReaction", true);
+			}
+
+		}
 
 		return "usr/article/detail";
 	}

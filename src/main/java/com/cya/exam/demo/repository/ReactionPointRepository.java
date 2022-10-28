@@ -78,7 +78,7 @@ public interface ReactionPointRepository {
 				AND `point` = 1;
 			</script>
 			""")
-	void cancelGoodReactionPoint(int actorId, String relTypeCode, int relId);
+	void deleteGoodReactionPoint(int actorId, String relTypeCode, int relId);
 
 	@Delete("""
 			<script>
@@ -89,6 +89,6 @@ public interface ReactionPointRepository {
 				AND `point` = -1;
 			</script>
 			""")
-	void cancelBadReactionPoint(int actorId, String relTypeCode, int relId);
+	void deleteBadReactionPoint(int actorId, String relTypeCode, int relId);
 
 }
