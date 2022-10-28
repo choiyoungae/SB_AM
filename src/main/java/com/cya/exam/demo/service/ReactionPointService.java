@@ -19,7 +19,7 @@ public class ReactionPointService {
 			return false;
 		}
 		
-		return reactionPointRepository.getSumReactionPointByMemberId(actorId, relTypeCode, relId) == 0;
+		return true;
 	}
 
 	public ResultData addGoodReactionPoint(int actorId, String relTypeCode, int relId) {
