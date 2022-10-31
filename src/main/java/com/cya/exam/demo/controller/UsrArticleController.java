@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.cya.exam.demo.service.ArticleService;
 import com.cya.exam.demo.service.BoardService;
 import com.cya.exam.demo.service.ReactionPointService;
+import com.cya.exam.demo.service.ReplyService;
 import com.cya.exam.demo.util.Ut;
 import com.cya.exam.demo.vo.Article;
 import com.cya.exam.demo.vo.Board;
@@ -29,6 +30,8 @@ public class UsrArticleController {
 	private BoardService boardService;
 	@Autowired
 	private ReactionPointService reactionPointService;
+	@Autowired
+	private ReplyService replyService;
 	@Autowired
 	private Rq rq;
 	

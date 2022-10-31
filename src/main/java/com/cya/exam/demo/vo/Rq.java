@@ -76,6 +76,10 @@ public class Rq {
 	public void logout() {
 		session.removeAttribute("loginedMemberId");
 	}
+	
+	public boolean isNotLogined() {
+		return !isLogined;
+	}
 
 	public String jsHistoryBackOnView(String msg) {
 		req.setAttribute("msg", msg);
