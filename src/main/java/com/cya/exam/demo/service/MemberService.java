@@ -16,7 +16,7 @@ public class MemberService {
 	@Autowired
 	private MemberRepository memberRepository;
 
-	public ResultData<Integer> join(String loginId, String loginPw, String name, String nickName, String cellphoneNum, String email) {
+	public ResultData<Integer> join(String loginId, String loginPw, String name, String nickname, String cellphoneNum, String email) {
 		
 		// 로그인 아이디 중복 체크
 		if(memberRepository.isLoginIdDup(loginId) != 0) {
@@ -28,7 +28,7 @@ public class MemberService {
 			return ResultData.from("F-8", Ut.f("이미 사용중인 이름(%s)과 이메일(%s)입니다", name, email));
 		}
 		
-		memberRepository.join(loginId, loginPw, name, nickName, cellphoneNum, email);
+		memberRepository.join(loginId, loginPw, name, nickname, cellphoneNum, email);
 		
 		int id = memberRepository.getLastInsertId();
 

@@ -25,7 +25,7 @@ public class UsrMemberController {
 	
 	@RequestMapping("/usr/member/doJoin")
 	@ResponseBody
-	public ResultData<Member> doJoin(String loginId, String loginPw, String name, String nickName, String cellphoneNum,
+	public ResultData<Member> doJoin(String loginId, String loginPw, String name, String nickname, String cellphoneNum,
 			String email) {
 		
 		if(Ut.isEmpty(loginId)) {
@@ -37,7 +37,7 @@ public class UsrMemberController {
 		if(Ut.isEmpty(name)) {
 			return ResultData.from("F-3", "이름을 입력해주세요.");
 		}
-		if(Ut.isEmpty(nickName)) {
+		if(Ut.isEmpty(nickname)) {
 			return ResultData.from("F-4", "닉네임을 입력해주세요.");
 		}
 		if(Ut.isEmpty(cellphoneNum)) {
@@ -51,7 +51,7 @@ public class UsrMemberController {
 		// 회원가입이 완료되었습니다
 		// F-1~8
 		// 실패
-		ResultData<Integer> joinRd = memberService.join(loginId, loginPw, name, nickName, cellphoneNum, email);
+		ResultData<Integer> joinRd = memberService.join(loginId, loginPw, name, nickname, cellphoneNum, email);
 		
 		if(joinRd.isFail()) {
 			return (ResultData)joinRd;
@@ -90,7 +90,7 @@ public class UsrMemberController {
 		
 		rq.login(member);
 		
-		return Ut.jsReplace(Ut.f("%s님 반갑습니다.", member.getNickName()), "/");
+		return Ut.jsReplace(Ut.f("%s님 반갑습니다.", member.getNickname()), "/");
 	}
 	
 	@RequestMapping("/usr/member/doLogout")

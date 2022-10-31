@@ -60,7 +60,7 @@
 							<td>${article.goodReactionPoint}</td>
 						</tr>
 					</c:forEach>
-					<c:if test="${articles.size() == 0 }">
+					<c:if test="${articlesCount == 0 }">
 						<tr>
 							<td colspan="5">게시글이 존재하지 않습니다.</td>
 						</tr>

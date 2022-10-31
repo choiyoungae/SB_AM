@@ -162,7 +162,7 @@
 					<tbody>
 						<tr>
 							<th>작성자</th>
-							<td>${rq.loginedMember.nickName }</td>
+							<td>${rq.loginedMember.nickname }</td>
 						</tr>
 						<tr>
 							<th>내용</th>
@@ -185,6 +185,30 @@
 		<c:if test="${rq.notLogined }">
 			<a class="btn-text-link btn  btn-ghost" href="/usr/member/login">로그인</a> 후 이용해주세요
 		</c:if>
+		
+		<h2 class="mt-5">댓글 목록</h2>
+		<div class="table-box-type-1">
+			<table class="table w-full">
+				<colgroup>
+					<col width="200" />
+				</colgroup>
+		
+				<tbody>
+					<c:forEach var="reply" items="${replies }">
+						<tr>
+							<th>${reply.extra__writerName }</th>
+							<td>${reply.body }</td>
+						</tr>
+					</c:forEach>
+					<c:if test="${repliesCount == 0 }">
+						<tr>
+							<td>댓글이 존재하지 않습니다.</td>
+						</tr>
+					</c:if>
+				</tbody>
+		
+			</table>
+		</div>
 	</div>
 </section>
 

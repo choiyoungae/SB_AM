@@ -19,15 +19,33 @@ public class UsrReplyController {
 	
 	@RequestMapping("/usr/reply/doWrite")
 	@ResponseBody
-	public String doAdd(String relTypeCode, int relId, String body) {
+	public String doAdd(String relTypeCode, int relId, String body, String replaceUri) {
 
-		if (Ut.isEmpty(body)) {
-			return Ut.jsHistoryBack("내용을 입력해주세요");
+		if (Ut.isEmpty(relTypeCode)) {
+			return rq.jsHistoryBack("relTypeCode을(를) 입력해주세요");
 		}
 
-		ResultData<Integer> writeReplyRd = replyService.writeReply(relTypeCode, relId, body, rq.getLoginedMemberId());
+		if (Ut.isEmpty(relId)) {
+			return rq.jsHistoryBack("relId을(를) 입력해주세요");
+		}
 
-		String replaceUri = Ut.f("../article/detail?id=%d", relId);
+		if (Ut.isEmpty(body)) {
+			return rq.jsHistoryBack("body을(를) 입력해주세요");
+		}
+
+
+		ResultData<Integer> writeReplyRd = replyService.writeReply(rq.getLoginedMemberId(), relTypeCode, relId, body);
+
+		int id = (int) writeReplyRd.getData1();
+
+		if (Ut.isEmpty(replaceUri)) {
+			switch (relTypeCode) {
+			case "article":
+				replaceUri = Ut.f("../article/detail?id=%d", id);
+				break;
+			}
+
+		}
 		
 		return Ut.jsReplace(writeReplyRd.getMsg(), replaceUri);
 	}

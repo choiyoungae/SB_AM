@@ -18,6 +18,7 @@ import com.cya.exam.demo.service.ReplyService;
 import com.cya.exam.demo.util.Ut;
 import com.cya.exam.demo.vo.Article;
 import com.cya.exam.demo.vo.Board;
+import com.cya.exam.demo.vo.Reply;
 import com.cya.exam.demo.vo.ResultData;
 import com.cya.exam.demo.vo.Rq;
 
@@ -112,6 +113,15 @@ public class UsrArticleController {
 			}
 
 		}
+		
+		List<Reply> replies = replyService.getForPrintReplies(id);
+		
+		int repliesCount = replyService.getRepliesCount(id);
+
+		model.addAttribute("replies", replies);
+		model.addAttribute("repliesCount", repliesCount);
+		
+		
 
 		return "usr/article/detail";
 	}
