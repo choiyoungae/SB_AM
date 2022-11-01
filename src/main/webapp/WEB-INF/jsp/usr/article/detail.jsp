@@ -95,7 +95,7 @@
 					</tr>
 					<tr>
 						<th>내용</th>
-						<td>${article.body }</td>
+						<td>${article.getForPrintBody() }</td>
 					</tr>
 					<tr>
 						<th>추천</th>
@@ -192,14 +192,31 @@
 		<div class="table-box-type-1">
 			<table class="table w-full">
 				<colgroup>
-					<col width="200" />
+					<col width="50" />
+					<col width="100" />
+					<col width="100" />
+					<col width="140" />
+					<col width="50" />
 				</colgroup>
+				
+				<thead>
+					<tr>
+						<th>번호</th>
+						<th>날짜</th>
+						<th>작성자</th>
+						<th>내용</th>
+						<th>추천</th>
+					</tr>
+				</thead>
 		
 				<tbody>
 					<c:forEach var="reply" items="${replies }">
 						<tr>
-							<th>${reply.extra__writerName }</th>
-							<td>${reply.body }</td>
+							<td>${reply.id }</td>
+							<td>${reply.regDate }</td>
+							<td>${reply.extra__writerName }</td>
+							<td>${reply.getForPrintBody() }</td>
+							<td>${reply.goodReactionPoint }</td>
 						</tr>
 					</c:forEach>
 					<c:if test="${repliesCount == 0 }">
