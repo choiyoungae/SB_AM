@@ -197,6 +197,7 @@
 					<col width="100" />
 					<col width="140" />
 					<col width="50" />
+					<col width="50" />
 				</colgroup>
 				
 				<thead>
@@ -206,17 +207,28 @@
 						<th>작성자</th>
 						<th>내용</th>
 						<th>추천</th>
+						<th>비고</th>
 					</tr>
 				</thead>
 		
 				<tbody>
-					<c:forEach var="reply" items="${replies }">
+					<c:forEach var="reply" items="${replies }" varStatus="status">
 						<tr>
-							<td>${reply.id }</td>
+							<td>${(replyPage-1)*5 + status.count }</td>
 							<td>${reply.regDate }</td>
 							<td>${reply.extra__writerName }</td>
 							<td>${reply.getForPrintBody() }</td>
 							<td>${reply.goodReactionPoint }</td>
+							<td>
+								<div class="btns">
+									<c:if test="${reply.extra__actorCanModify }">
+										<a class="btn-text-link" href="../reply/modify?id=${reply.id }">수정</a>
+									</c:if>
+									<c:if test="${reply.extra__actorCanDelete }">
+										<a class="btn-text-link" onclick="if(confirm('정말 삭제하시겠습니까?') == false) return false;" href="../reply/doDelete?id=${reply.id }">삭제</a>
+									</c:if>
+								</div>
+							</td>
 						</tr>
 					</c:forEach>
 					<c:if test="${repliesCount == 0 }">

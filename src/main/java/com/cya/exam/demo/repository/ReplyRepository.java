@@ -58,6 +58,25 @@ public interface ReplyRepository {
 			""")
 	int getRepliesCount(String relTypeCode, int relId);
 
+	@Select("""
+			<script>
+				SELECT R.*, M.nickname AS extra__writerName
+				FROM reply AS R 
+				LEFT JOIN `member` AS M
+				ON R.memberId = M.id
+				WHERE R.id = #{id}
+			</script>
+			""")
+	Reply getOneReply(int id);
+
+	@Delete("""
+			<script>
+				DELETE FROM reply
+				WHERE id = #{id}
+			</script>
+			""")
+	void deleteReply(int id);
+
 
 	
 

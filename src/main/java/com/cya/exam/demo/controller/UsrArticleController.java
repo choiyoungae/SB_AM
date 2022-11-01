@@ -116,16 +116,15 @@ public class UsrArticleController {
 		
 		int repliesInAPage = 5;
 		
-		List<Reply> replies = replyService.getForPrintReplies(id, repliesInAPage, replyPage);
+		List<Reply> replies = replyService.getForPrintReplies(rq.getLoginedMemberId(), id, repliesInAPage, replyPage);
 		
 		int repliesCount = replyService.getRepliesCount(id);
 
 		model.addAttribute("replies", replies);
 		model.addAttribute("repliesCount", repliesCount);
 		model.addAttribute("replyPagesCount", (int)Math.ceil((double)repliesCount/repliesInAPage));
+		model.addAttribute("replyPage", replyPage);
 		
-		
-
 		return "usr/article/detail";
 	}
 
