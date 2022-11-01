@@ -24,8 +24,11 @@ public class ReplyService {
 		return ResultData.from("S-1", Ut.f("%d번 댓글이 등록되었습니다", id), "id", id);
 	}
 
-	public List<Reply> getForPrintReplies(int id) {
-		return replyRepository.getForPrintReplies("article", id);
+	public List<Reply> getForPrintReplies(int relId, int repliesInAPage, int replyPage) {
+		int limitStart = (replyPage - 1) * repliesInAPage;
+		int limitTake = repliesInAPage;
+		
+		return replyRepository.getForPrintReplies("article", relId, limitStart, limitTake);
 	}
 
 	public int getRepliesCount(int id) {

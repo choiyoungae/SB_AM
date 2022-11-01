@@ -92,7 +92,7 @@ public class UsrArticleController {
 	}
 	
 	@RequestMapping("/usr/article/detail")
-	public String showDetail(Model model, int id) {
+	public String showDetail(Model model, int id, @RequestParam(defaultValue = "1") int replyPage) {
 
 		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
 
@@ -114,12 +114,15 @@ public class UsrArticleController {
 
 		}
 		
-		List<Reply> replies = replyService.getForPrintReplies(id);
+		int repliesInAPage = 5;
+		
+		List<Reply> replies = replyService.getForPrintReplies(id, repliesInAPage, replyPage);
 		
 		int repliesCount = replyService.getRepliesCount(id);
 
 		model.addAttribute("replies", replies);
 		model.addAttribute("repliesCount", repliesCount);
+		model.addAttribute("replyPagesCount", (int)Math.ceil((double)repliesCount/repliesInAPage));
 		
 		
 

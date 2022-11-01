@@ -34,6 +34,7 @@
 	})
 </script>
 
+<!--  
 <script>
 	// 댓글 관련
 	let ReplyWrite__submitFormDone = false;
@@ -54,6 +55,7 @@
 		form.submit();
 	}
 </script>
+ -->
 
 <section class="mt-8 text-xl">
 	<div class="container mx-auto px-3">
@@ -167,8 +169,8 @@
 						<tr>
 							<th>내용</th>
 							<td>
-								<textarea class="textarea textarea-bordered w-full" type="text" name="body"
-									placeholder="댓글을 입력해주세요" rows="5" /></textarea>
+								<textarea style="resize: none;" class="textarea textarea-bordered w-full" type="text" name="body"
+									placeholder="댓글을 입력해주세요" /></textarea>
 							</td>
 						</tr>
 						<tr>
@@ -208,6 +210,36 @@
 				</tbody>
 		
 			</table>
+		</div>
+		
+		<div class="mt-3 flex justify-center">
+			<div class="btn-group">
+				<!-- 현재 페이지 번호의 앞뒤에 몇 개의 페이지 번호를 보여줄지 결정 -->
+				<c:set var="pageMenuLen" value="4" />
+				<!-- 페이지 번호의 시작을 지정 -->
+				<c:set var="startPageNum" value="${replyPage - pageMenuLen >= 1 ? replyPage - pageMenuLen : 1 }" />
+				<!-- 페이지 번호의 끝을 지정 -->
+				<c:set var="endPageNum" value="${replyPage + pageMenuLen <= replyPagesCount ? replyPage + pageMenuLen : replyPagesCount }" />
+				<!-- 페이지 주소 설정(검색 결과에 대한 페이지 처리를 위해) -->
+				<c:set var="pageBaseUri" value="?id=${param.id }" />
+				
+				<c:if test="${startPageNum != 1 }">
+					<a class="pageChangeBtn left" href="${pageBaseUri }&replyPage=${1 }">◀◀</a>
+					<a class="pageChangeBtn left" href="${pageBaseUri }&replyPage=${replyPage - pageMenuLen < 1 ? 1 : replyPage - pageMenuLen }">◀</a>
+				</c:if>
+				<!-- 페이지 번호 표시 -->
+				<c:forEach var="i" begin="${startPageNum }" end="${endPageNum }" step="1">
+					<a href="${pageBaseUri }&replyPage=${i }">
+						<p class="btn btn-ghost ${replyPage == i ? 'btn-active' : '' }">
+							${i }
+						</p>
+					</a>
+				</c:forEach>
+				<c:if test="${endPageNum != replyPagesCount }">
+					<a class="pageChangeBtn right" href="${pageBaseUri }&page=${replyPage + pageMenuLen > replyPagesCount ? replyPagesCount : replyPage + pageMenuLen }">▶</a>
+					<a class="pageChangeBtn right" href="${pageBaseUri }&page=${replyPagesCount }">▶▶</a>
+				</c:if>
+			</div>
 		</div>
 	</div>
 </section>
