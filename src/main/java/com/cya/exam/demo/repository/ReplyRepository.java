@@ -67,7 +67,7 @@ public interface ReplyRepository {
 				WHERE R.id = #{id}
 			</script>
 			""")
-	Reply getOneReply(int id);
+	Reply getForPrintReply(int id);
 
 	@Delete("""
 			<script>

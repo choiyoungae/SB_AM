@@ -9,6 +9,7 @@ import com.cya.exam.demo.repository.ReactionPointRepository;
 import com.cya.exam.demo.repository.ReplyRepository;
 import com.cya.exam.demo.util.Ut;
 import com.cya.exam.demo.vo.Article;
+import com.cya.exam.demo.vo.Member;
 import com.cya.exam.demo.vo.Reply;
 import com.cya.exam.demo.vo.ResultData;
 
@@ -25,44 +26,48 @@ public class ReplyService {
 		return ResultData.from("S-1", Ut.f("%d번 댓글이 등록되었습니다", id), "id", id);
 	}
 
-	public List<Reply> getForPrintReplies(int actorId, int relId, int repliesInAPage, int replyPage) {
+	public List<Reply> getForPrintReplies(Member actor, String relTypeCode, int relId, int repliesInAPage, int replyPage) {
 		int limitStart = (replyPage - 1) * repliesInAPage;
 		int limitTake = repliesInAPage;
-		List<Reply> replies = replyRepository.getForPrintReplies("article", relId, limitStart, limitTake);
+		List<Reply> replies = replyRepository.getForPrintReplies(relTypeCode, relId, limitStart, limitTake);
 		
 		for (Reply reply : replies) {
-			updateForPrintData(actorId, reply);
+			updateForPrintData(actor, reply);
 		}
 		
 		return replies;
 	}
 
-	private void updateForPrintData(int actorId, Reply reply) {
-		if(reply == null) {
+	private void updateForPrintData(Member actor, Reply reply) {
+		if(actor == null) {
 			return;
 		}
 		
-		ResultData actorCanDeleteRd = actorCanDelete(actorId, reply);
+		ResultData actorCanDeleteRd = actorCanDelete(actor, reply);
 		reply.setExtra__actorCanDelete(actorCanDeleteRd.isSuccess());
 
-		ResultData actorCanModifyRd = actorCanModify(actorId, reply);
+		ResultData actorCanModifyRd = actorCanModify(actor, reply);
 		reply.setExtra__actorCanModify(actorCanModifyRd.isSuccess());
 	}
 
-	public ResultData actorCanDelete(int actorId, Reply reply) {
+	public ResultData actorCanDelete(Member actor, Reply reply) {
 		if(reply == null) {
 			return ResultData.from("F-1", "댓글이 존재하지 않습니다.");
 		}
 		
-		if(reply.getMemberId() != actorId) {
+		if(reply.getMemberId() != actor.getId()) {
 			return ResultData.from("F-2", "해당 댓글에 대한 권한이 없습니다.");
 		}
 		
 		return ResultData.from("S-1", "삭제 가능");
 	}
 
-	public ResultData actorCanModify(int actorId, Reply reply) {
-		if(reply.getMemberId() != actorId) {
+	public ResultData actorCanModify(Member actor, Reply reply) {
+		if(reply == null) {
+			return ResultData.from("F-1", "댓글이 존재하지 않습니다.");
+		}
+		
+		if(reply.getMemberId() != actor.getId()) {
 			return ResultData.from("F-2", "해당 댓글에 대한 권한이 없습니다.");
 		}
 		
@@ -74,16 +79,18 @@ public class ReplyService {
 		return replyRepository.getRepliesCount("article", id);
 	}
 
-	public Reply getOneReply(int actorId, int id) {
-		Reply reply = replyRepository.getOneReply(id);
+	public Reply getForPrintReply(Member actor, int id) {
+		Reply reply = replyRepository.getForPrintReply(id);
 		
-		updateForPrintData(actorId, reply);
+		updateForPrintData(actor, reply);
 		
 		return reply;
 	}
 
-	public void deleteReply(int id) {
+	public ResultData deleteReply(int id) {
 		replyRepository.deleteReply(id);
+		
+		return ResultData.from("S-1", Ut.f("%d번 댓글을 삭제했습니다", id));
 	}
 
 	

@@ -215,19 +215,17 @@
 					<c:forEach var="reply" items="${replies }" varStatus="status">
 						<tr>
 							<td>${(replyPage-1)*5 + status.count }</td>
-							<td>${reply.regDate }</td>
+							<td>${reply.forPrintType1RegDate }</td>
 							<td>${reply.extra__writerName }</td>
 							<td>${reply.getForPrintBody() }</td>
 							<td>${reply.goodReactionPoint }</td>
 							<td>
-								<div class="btns">
-									<c:if test="${reply.extra__actorCanModify }">
-										<a class="btn-text-link" href="../reply/modify?id=${reply.id }">수정</a>
-									</c:if>
-									<c:if test="${reply.extra__actorCanDelete }">
-										<a class="btn-text-link" onclick="if(confirm('정말 삭제하시겠습니까?') == false) return false;" href="../reply/doDelete?id=${reply.id }">삭제</a>
-									</c:if>
-								</div>
+								<c:if test="${reply.extra__actorCanModify }">
+									<a class="btn-text-link" href="../reply/modify?id=${reply.id }">수정</a>
+								</c:if>
+								<c:if test="${reply.extra__actorCanDelete }">
+									<a class="btn-text-link" onclick="if(confirm('정말 삭제하시겠습니까?') == false) return false;" href="../reply/doDelete?id=${reply.id }">삭제</a>
+								</c:if>
 							</td>
 						</tr>
 					</c:forEach>

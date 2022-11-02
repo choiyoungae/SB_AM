@@ -116,7 +116,7 @@ public class UsrArticleController {
 		
 		int repliesInAPage = 5;
 		
-		List<Reply> replies = replyService.getForPrintReplies(rq.getLoginedMember(), id, repliesInAPage, replyPage);
+		List<Reply> replies = replyService.getForPrintReplies(rq.getLoginedMember(), "article", id, repliesInAPage, replyPage);
 		
 		int repliesCount = replyService.getRepliesCount(id);
 
