@@ -39,6 +39,13 @@
 					</a>
 				</li>
 				<li class="hover:underline">
+					<c:if test="${sessionScope.loginedMemberId ne null}">
+						<a href="/usr/member/myPage?id=${sessionScope.loginedMemberId }" class="h-full flex items-center px-3">
+							<span>MYPAGE</span>
+						</a>
+					</c:if>
+				</li>
+				<li class="hover:underline">
 					<a href="/usr/article/list?boardId=1" class="h-full flex items-center px-3">
 						<span>NOTICE</span>
 					</a>
@@ -48,11 +55,6 @@
 						<span>FREE</span>
 					</a>
 				</li>
-				<!-- <li class="hover:underline">
-					<a href="/usr/article/list" class="h-full flex items-center px-3">
-						<span>LIST</span>
-					</a>
-				</li> -->
 				<li class="hover:underline">
 					<c:choose>
 					    <c:when test="${sessionScope.loginedMemberId eq null}">
