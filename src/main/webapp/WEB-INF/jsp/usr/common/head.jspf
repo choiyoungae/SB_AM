@@ -25,7 +25,7 @@
 <body>
 	
 	<header>
-		<div class="h-20 flex container mx-auto text-4xl">
+		<div class="h-20 flex container mx-auto text-3xl">
 			<a href="#" class="flex items-center px-3">
 				<span>로고</span>
 			</a>
@@ -38,13 +38,13 @@
 						<span>HOME</span>
 					</a>
 				</li>
-				<li class="hover:underline">
-					<c:if test="${sessionScope.loginedMemberId ne null}">
-						<a href="/usr/member/myPage?id=${sessionScope.loginedMemberId }" class="h-full flex items-center px-3">
-							<span>MYPAGE</span>
-						</a>
-					</c:if>
-				</li>
+				<c:if test="${rq.isLogined()}">
+					<li class="hover:underline">
+							<a href="/usr/member/myPage" class="h-full flex items-center px-3">
+								<span>MYPAGE</span>
+							</a>
+					</li>
+				</c:if>
 				<li class="hover:underline">
 					<a href="/usr/article/list?boardId=1" class="h-full flex items-center px-3">
 						<span>NOTICE</span>
@@ -55,21 +55,22 @@
 						<span>FREE</span>
 					</a>
 				</li>
-				<li class="hover:underline">
-					<c:choose>
-					    <c:when test="${sessionScope.loginedMemberId eq null}">
-							<a href="/usr/member/login" class="h-full flex items-center px-3">
-								<span>LOGIN</span>
-							</a>
-					    </c:when>
-					    <c:otherwise>
-							<a href="/usr/member/doLogout" class="h-full flex items-center px-3">
-								<span>LOGOUT</span>
-							</a>
-					    </c:otherwise>
-					</c:choose>
+				<c:if test="${!rq.isLogined()}">
+					<li class="hover:underline">
+						<a class="h-full px-3 flex items-center" href="/usr/member/login">
+							<span>LOGIN</span>
+						</a>
+					</li>
+				</c:if>
+				<c:if test="${rq.isLogined()}">
+					<li class="hover:underline">
+						<a class="h-full px-3 flex items-center" href="/usr/member/doLogout">
+							<span>LOGOUT</span>
+						</a>
+					</li>
+				</c:if>
 					
-				</li>
+				
 			</ul>
 		</div>
 	</header>

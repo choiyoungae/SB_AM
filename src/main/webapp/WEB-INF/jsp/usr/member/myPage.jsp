@@ -16,27 +16,35 @@
 				<tbody>
 					<tr>
 						<th>가입일</th>
-						<td>${member.regDate }</td>
+						<td>${rq.loginedMember.regDate }</td>
 					</tr>
 					<tr>
 						<th>아이디</th>
-						<td>${member.loginId }</td>
+						<td>${rq.loginedMember.loginId }</td>
 					</tr>
 					<tr>
 						<th>이름</th>
-						<td>${member.name }</td>
+						<td>${rq.loginedMember.name }</td>
 					</tr>
 					<tr>
 						<th>닉네임</th>
-						<td>${member.nickname }</td>
+						<td>${rq.loginedMember.nickname }</td>
 					</tr>
 					<tr>
 						<th>전화번호</th>
-						<td>${member.cellphoneNum }</td>
+						<td>${rq.loginedMember.cellphoneNum }</td>
 					</tr>
 					<tr>
 						<th>이메일</th>
-						<td>${member.email }</td>
+						<td>${rq.loginedMember.email }</td>
+					</tr>
+					<tr>
+						<th></th>
+						<td>
+							<a href="../member/checkPassword?replaceUri=${Ut.getUriEncoded('../member/modify')}"
+								class="btn btn-active btn-ghost"
+							> 회원정보수정 </a>
+						</td>
 					</tr>
 				</tbody>
 			</table>

@@ -18,14 +18,13 @@ import lombok.Getter;
 @Component
 @Scope(value = "request", proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class Rq {
-	
 	@Getter
 	private boolean isLogined;
 	@Getter
 	private int loginedMemberId;
 	@Getter
 	private Member loginedMember;
-	
+
 	private HttpServletRequest req;
 	private HttpServletResponse resp;
 	private HttpSession session;
@@ -33,7 +32,9 @@ public class Rq {
 	public Rq(HttpServletRequest req, HttpServletResponse resp, MemberService memberService) {
 		this.req = req;
 		this.resp = resp;
+
 		this.session = req.getSession();
+
 		boolean isLogined = false;
 		int loginedMemberId = 0;
 		Member loginedMember = null;
@@ -43,28 +44,27 @@ public class Rq {
 			loginedMemberId = (int) session.getAttribute("loginedMemberId");
 			loginedMember = memberService.getMemberById(loginedMemberId);
 		}
-		
+
 		this.isLogined = isLogined;
 		this.loginedMemberId = loginedMemberId;
 		this.loginedMember = loginedMember;
-		
+
 		this.req.setAttribute("rq", this);
 	}
 
 	public void printHistoryBackJs(String msg) {
 		resp.setContentType("text/html; charset=UTF-8");
-		
 		print(Ut.jsHistoryBack(msg));
 	}
 
-	private void print(String str) {
+	public void print(String str) {
 		try {
 			resp.getWriter().append(str);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void println(String str) {
 		print(str + "\n");
 	}
@@ -76,7 +76,7 @@ public class Rq {
 	public void logout() {
 		session.removeAttribute("loginedMemberId");
 	}
-	
+
 	public boolean isNotLogined() {
 		return !isLogined;
 	}
@@ -94,7 +94,7 @@ public class Rq {
 	public String jsReplace(String msg, String uri) {
 		return Ut.jsReplace(msg, uri);
 	}
-	
+
 	public String getCurrentUri() {
 		String currentUri = req.getRequestURI();
 		String queryString = req.getQueryString();
@@ -110,10 +110,10 @@ public class Rq {
 
 		return Ut.getUriEncoded(getCurrentUri());
 	}
-	
-	// 해당 메서드는 Rq 객체의 생성을 유도하는 것임
-	// 삭제 금지, 편의를 위하여 BeforeActionInterceptor 에서 호출해줘야 함
+
+	// 해당 메서드는 Rq 객체의 생성을 유도한다.
+	// 삭제 금지, 편의를 위하여 BeforeActionInterceptor 에서 호출해줘야 한다.
 	public void initOnBeforeActionInterceptor() {
-		
+
 	}
 }
