@@ -118,21 +118,40 @@ public class UsrReplyController {
 		return "usr/reply/modify";
 	}
 
-//	@RequestMapping("/usr/reply/doModify")
-//	@ResponseBody
-//	public String doModify(int id, String title, String body) {
-//		
-//		Reply reply = replyService.getForPrintArticle(rq.getLoginedMemberId(), id);
-//		
-//		ResultData actorCanModifyRd = replyService.actorCanModify(rq.getLoginedMemberId(), reply);
-//		
-//		if(actorCanModifyRd.isFail()) {
-//			return rq.jsHistoryBack(actorCanModifyRd.getMsg());
-//		}
-//		
-//		replyService.modifyArticle(id, title, body);
-//		
-//		return rq.jsReplace("댓글이 수정되었습니다.", Ut.f("../article/detail?id=%d", reply.getRelId()));
-//	}
+	@RequestMapping("/usr/reply/doModify")
+	@ResponseBody
+	public String doModify(int id, String body, String replaceUri) {
+
+		if (Ut.isEmpty(id)) {
+			return rq.jsHistoryBack("id가 없습니다");
+		}
+
+		Reply reply = replyService.getForPrintReply(rq.getLoginedMember(), id);
+
+		if (reply == null) {
+			return rq.jsHistoryBack(Ut.f("%d번 댓글은 존재하지 않습니다", id));
+		}
+
+		if (reply.isExtra__actorCanModify() == false) {
+			return rq.jsHistoryBack("해당 댓글을 삭제할 권한이 없습니다");
+		}
+
+		if (Ut.isEmpty(body)) {
+			return rq.jsHistoryBack("내용을 입력해주세요");
+		}
+
+		ResultData modifyReplyRd = replyService.modifyReply(id, body);
+
+		if (Ut.isEmpty(replaceUri)) {
+			switch (reply.getRelTypeCode()) {
+			case "article":
+				replaceUri = Ut.f("../article/detail?id=%d", reply.getRelId());
+				break;
+			}
+
+		}
+
+		return rq.jsReplace(modifyReplyRd.getMsg(), replaceUri);
+	}
 	
 }
