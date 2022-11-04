@@ -20,7 +20,7 @@
 					<tr>
 						<th>비밀번호</th>
 						<td>
-							<input required="required" class="w-full input input-bordered  max-w-xs" name="loginPw" type="password"
+							<input name="loginPw" required="required" class="w-full input input-bordered max-w-xs"
 								placeholder="비밀번호를 입력해주세요"
 							/>
 						</td>
@@ -41,4 +41,5 @@
 	</div>
 
 </section>
+
 <%@ include file="../common/foot.jspf"%>

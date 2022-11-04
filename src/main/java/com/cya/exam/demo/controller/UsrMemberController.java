@@ -114,24 +114,68 @@ public class UsrMemberController {
 		return "usr/member/myPage";
 	}
 	
-	@RequestMapping("usr/member/checkPassword")
+	@RequestMapping("/usr/member/checkPassword")
 	public String showcheckPassword() {
 
 		return "usr/member/checkPassword";
 	}
 
-	@RequestMapping("usr/member/doCheckPassword")
+	@RequestMapping("/usr/member/doCheckPassword")
 	@ResponseBody
-	public String doCheckPassword(String loginPw, String replcaUri) {
+	public String doCheckPassword(String loginPw, String replaceUri) {
+		
+		System.out.println(loginPw + "1");
 		if (Ut.isEmpty(loginPw)) {
+			System.out.println(loginPw + "2");
 			return rq.jsHistoryBack("비밀번호를 입력해주세요");
 		}
 
 		if (rq.getLoginedMember().getLoginPw().equals(loginPw) == false) {
+			System.out.println(loginPw + "3");
 			return rq.jsHistoryBack("비밀번호가 일치하지 않습니다");
 		}
 
+//		if (replaceUri.equals("../member/modify")) {
+//			String memberModifyAuthKey = memberService.genMemberModifyAuthKey(rq.getLoginedMemberId());
+//
+//			replaceUri += "?memberModifyAuthKey=" + memberModifyAuthKey;
+//		}
+		
+		if(replaceUri == null) {
+			replaceUri = "/usr/member/myPage";
+		}
+
+		return rq.jsReplace("", replaceUri);
+	}
+
+	@RequestMapping("/usr/member/modify")
+	public String showModify() {
 		return "usr/member/modify";
 	}
 
+	@RequestMapping("/usr/member/doModify")
+	@ResponseBody
+	public String doModify(String loginPw, String name, String nickname, String cellphoneNum, String email) {
+		if (Ut.isEmpty(loginPw)) {
+			loginPw = null;
+		}
+		if (Ut.isEmpty(name)) {
+			return rq.jsHistoryBack("이름을 입력해주세요");
+		}
+		if (Ut.isEmpty(nickname)) {
+			return rq.jsHistoryBack("닉네임을 입력해주세요");
+		}
+		if (Ut.isEmpty(cellphoneNum)) {
+			return rq.jsHistoryBack("전화번호를 입력해주세요");
+		}
+		if (Ut.isEmpty(email)) {
+			return rq.jsHistoryBack("이메일을 입력해주세요");
+		}
+
+		ResultData modifyRd = memberService.modifyMember(rq.getLoginedMemberId(), loginPw, name, nickname, cellphoneNum,
+				email);
+
+		return rq.jsReplace(modifyRd.getMsg(), "/");
+
+	}
 }
