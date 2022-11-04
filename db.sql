@@ -253,6 +253,38 @@ relTypeCode = 'article',
 relId = 2,
 `body` = '댓글 4';
 
+# 댓글 테이블에 goodReactionPoint 칼럼 추가
+ALTER TABLE reply ADD COLUMN goodReactionPoint INT(10) UNSIGNED NOT NULL DEFAULT 0;
+
+# 댓글 테이블에 badReactionPoint 칼럼 추가
+ALTER TABLE reply ADD COLUMN badReactionPoint INT(10) UNSIGNED NOT NULL DEFAULT 0;
+
+# 댓글 테이블에 인덱스 걸기
+ALTER TABLE `SB_AM`.`reply` ADD INDEX (`relTypeCode`, `relId`);
+
+# 부가정보테이블
+CREATE TABLE attr (
+    id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    regDate DATETIME NOT NULL,
+    updateDate DATETIME NOT NULL,
+    `relTypeCode` CHAR(20) NOT NULL,
+    `relId` INT(10) UNSIGNED NOT NULL,
+    `typeCode` CHAR(30) NOT NULL,
+    `type2Code` CHAR(70) NOT NULL,
+    `value` TEXT NOT NULL
+);
+
+# attr 유니크 인덱스 걸기
+## 중복변수 생성금지
+## 변수찾는 속도 최적화
+ALTER TABLE `attr` ADD UNIQUE INDEX (`relTypeCode`, `relId`, `typeCode`, `type2Code`);
+
+## 특정 조건을 만족하는 회원 또는 게시물(기타 데이터)를 빠르게 찾기 위해서
+ALTER TABLE `attr` ADD INDEX (`relTypeCode`, `typeCode`, `type2Code`);
+
+# attr에 만료날짜 추가
+ALTER TABLE `attr` ADD COLUMN `expireDate` DATETIME NULL AFTER `value`;
+
 #######################################################
 
 SELECT * FROM `member`;
@@ -260,6 +292,7 @@ SELECT * FROM article ORDER BY id;
 SELECT * FROM board;
 SELECT * FROM reactionPoint;
 SELECT * FROM reply;
+SELECT * FROM attr;
 
 /*# 게시물 갯수 늘리기
 insert into article
@@ -325,3 +358,11 @@ SELECT *
 FROM reactionPoint AS RP
 GROUP BY RP.relTypeCode, RP.relId
 */
+
+EXPLAIN SELECT R.*, M.nickname AS extra__writerName
+FROM reply AS R
+LEFT JOIN `member` AS M
+ON R.memberId = M.id
+WHERE R.relTypeCode = 'article'
+AND R.relId = 2
+ORDER BY R.id DESC

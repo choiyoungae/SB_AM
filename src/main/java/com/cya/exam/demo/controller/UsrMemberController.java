@@ -135,11 +135,11 @@ public class UsrMemberController {
 			return rq.jsHistoryBack("비밀번호가 일치하지 않습니다");
 		}
 
-//		if (replaceUri.equals("../member/modify")) {
-//			String memberModifyAuthKey = memberService.genMemberModifyAuthKey(rq.getLoginedMemberId());
-//
-//			replaceUri += "?memberModifyAuthKey=" + memberModifyAuthKey;
-//		}
+		if (replaceUri.equals("../member/modify")) {
+			String memberModifyAuthKey = memberService.genMemberModifyAuthKey(rq.getLoginedMemberId());
+
+			replaceUri += "?memberModifyAuthKey=" + memberModifyAuthKey;
+		}
 		
 		if(replaceUri == null) {
 			replaceUri = "/usr/member/myPage";

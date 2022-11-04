@@ -59,8 +59,7 @@ function MemberModify__submit(form) {
 		<form class="table-box-type-1" method="POST" action="../member/doModify"
 			onsubmit="MemberModify__submit(this); return false;"
 		>
-			<%-- 			<input type="hidden" name="id" value="${member.id }" /> --%>
-			<table class="table table-zebra w-full">
+			<table class="table w-full">
 				<colgroup>
 					<col width="200" />
 				</colgroup>
