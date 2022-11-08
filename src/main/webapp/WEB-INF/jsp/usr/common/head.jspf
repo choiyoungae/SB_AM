@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="favicon" href="./favicon.ico">
 <meta charset="UTF-8">
 <title>${pageTitle }</title>
 
