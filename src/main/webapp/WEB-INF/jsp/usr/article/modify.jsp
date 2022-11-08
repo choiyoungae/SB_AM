@@ -3,6 +3,7 @@
 
 <c:set var="pageTitle" value="ARTICLE MODIFY" />
 <%@ include file="../common/head.jspf" %>
+<%@ include file="../common/toastUiEditorLib.jspf" %>
 
 <script>
 	let ArticleModify__submitDone = false;
@@ -10,13 +11,18 @@
 		if (ArticleModify__submitDone) {
 			return;
 		}
-		form.body.value = form.body.value.trim();
-		if (form.body.value.length == 0) {
+		
+		const editor = $(form).find('.toast-ui-editor').data('.data-toast-editor');
+		const markdown = editor.getMarkdown().trim();
+		
+		if(markdown.length == 0) {
 			alert('내용을 입력해주세요');
-			form.body.focus();
+			editor.focus();
 			return;
 		}
+		form.body.value = markdown;
 		ArticleModify__submitDone = true;
+		
 		form.submit();
 	}
 </script>
@@ -26,6 +32,7 @@
 		
 		<form class="table-box-type-1" method="POST" action="../article/doModify" onsubmit="ArticleModify__submit(this); return false;">
 			<input type="hidden" name="id" value="${article.id }" />
+			<input type="hidden" name="body" />
 			<table>
 				<colgroup>
 					<col width="200" />
@@ -54,12 +61,16 @@
 					</tr>
 					<tr>
 						<th>내용</th>
-						<td><textarea class="w-full" type="text" name="body" placeholder="내용을 입력해주세요.">${article.body }</textarea></td>
+						<td>
+							<div class="toast-ui-editor">
+								<script type="text/x-template">${article.body}</script>
+							</div>
+						</td>
 					</tr>
 					<tr>
 						<th></th>
 						<td>
-							<button class="btn btn-ghost" type="submit" value="수정" />수정</button>
+							<button class="btn btn-ghost" type="submit" value="수정" >수정</button>
 						</td>
 					</tr>
 				</tbody>

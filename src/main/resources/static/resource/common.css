@@ -15,8 +15,9 @@
 html > body > header {
 	font-family: 'MICEGothic Bold';
 }
-html > body {
+html > body, html>body .toast-ui-editor, html>body .toastui-editor-contents, html>body .ProseMirror, html>body .toastui-editor-md-mode {
 	font-family: 'MICEGothic';
+	text-underline-position: under;
 }
 
 /* 라이브러리 */
