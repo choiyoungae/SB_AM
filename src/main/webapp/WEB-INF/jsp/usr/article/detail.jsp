@@ -236,7 +236,7 @@
 					</c:forEach>
 					<c:if test="${repliesCount == 0 }">
 						<tr>
-							<td>댓글이 존재하지 않습니다.</td>
+							<td colspan="6">댓글이 존재하지 않습니다.</td>
 						</tr>
 					</c:if>
 				</tbody>

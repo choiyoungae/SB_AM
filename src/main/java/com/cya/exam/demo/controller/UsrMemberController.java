@@ -1,10 +1,9 @@
 package com.cya.exam.demo.controller;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cya.exam.demo.service.MemberService;
@@ -61,13 +60,13 @@ public class UsrMemberController {
 	}
 	
 	@RequestMapping("/usr/member/login")
-	public String showLogin(HttpSession httpSession) {
+	public String showLogin() {
 		return "usr/member/login";
 	}
 	
 	@RequestMapping("/usr/member/doLogin")
 	@ResponseBody
-	public String doLogin(HttpSession httpSession, String loginId, String loginPw) {
+	public String doLogin(String loginId, String loginPw, @RequestParam(defaultValue = "/") String afterLoginUri) {
 		
 		if(Ut.isEmpty(loginId)) {
 			return Ut.jsHistoryBack("아이디를 입력해주세요.");
@@ -88,12 +87,12 @@ public class UsrMemberController {
 		
 		rq.login(member);
 		
-		return Ut.jsReplace(Ut.f("%s님 반갑습니다.", member.getNickname()), "/");
+		return Ut.jsReplace(Ut.f("%s님 반갑습니다.", member.getNickname()), afterLoginUri);
 	}
 	
 	@RequestMapping("/usr/member/doLogout")
 	@ResponseBody
-	public String doLogout(HttpSession httpSession) {
+	public String doLogout() {
 
 		rq.logout();
 		
