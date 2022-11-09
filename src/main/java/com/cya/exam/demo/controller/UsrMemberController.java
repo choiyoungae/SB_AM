@@ -1,22 +1,15 @@
 package com.cya.exam.demo.controller;
 
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cya.exam.demo.service.MemberService;
 import com.cya.exam.demo.util.Ut;
-import com.cya.exam.demo.vo.Article;
 import com.cya.exam.demo.vo.Member;
-import com.cya.exam.demo.vo.Reply;
 import com.cya.exam.demo.vo.ResultData;
 import com.cya.exam.demo.vo.Rq;
 
