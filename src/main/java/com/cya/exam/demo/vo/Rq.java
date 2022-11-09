@@ -114,11 +114,11 @@ public class Rq {
 		return Ut.getUriEncoded(getCurrentUri());
 	}
 
-	public void runA() {
-		System.out.println("A 호출됨");
-		runB();
+	public String getAfterLoginUri() {
+		return getEncodedCurrentUri();
 	}
-	public void runB() {
-		System.out.println("B 호출됨");
+	
+	public String getLoginUri() {
+		return "../member/login?afterLoginUri=" + getAfterLoginUri();
 	}
 }

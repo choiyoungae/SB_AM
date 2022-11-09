@@ -190,7 +190,7 @@
 			</form>
 		</c:if>
 		<c:if test="${rq.notLogined }">
-			<a class="btn-text-link btn  btn-ghost" href="/usr/member/login">로그인</a> 후 이용해주세요
+			<a class="btn-text-link btn  btn-ghost" href="${rq.loginUri}">로그인</a> 후 이용해주세요
 		</c:if>
 		
 		<h2 class="mt-5">댓글 목록</h2>
