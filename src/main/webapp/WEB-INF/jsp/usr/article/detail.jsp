@@ -35,29 +35,6 @@
 	})
 </script>
 
-<!--  
-<script>
-	// 댓글 관련
-	let ReplyWrite__submitFormDone = false;
-	function ReplyWrite__submitForm(form) {
-		if(ReplyWrite__submitFormDone) {
-			return;
-		}
-		
-		form.body.value = form.body.value.trim();
-		
-		if(form.body.value.length < 2) {
-			alert("2글자 이상 입력해주세요.");
-			form.body.focus();
-			return;
-		}
-		
-		ReplyWrite__submitFormDone = true;
-		form.submit();
-	}
-</script>
- -->
-
 <section class="mt-8 text-xl">
 	<div class="container mx-auto px-3">
 		
@@ -140,7 +117,12 @@
 		</div>
 		
 		<div class="btns">
-			<button class="btn-text-link btn btn-ghost" type="button" onclick="history.back();">뒤로가기</button>
+			<c:if test="${empty param.listUri}">
+				<button class="btn-text-link btn btn-active btn-ghost" type="button" onclick="history.back();">뒤로가기</button>
+			</c:if>
+			<c:if test="${not empty param.listUri}">
+				<a class="btn-text-link btn btn-active btn-ghost" href="${param.listUri }">뒤로가기</a>
+			</c:if>
 			<c:if test="${article.extra__actorCanModify }">
 				<a class="btn-text-link btn btn-ghost" href="../article/modify?id=${article.id }">수정</a>
 			</c:if>
