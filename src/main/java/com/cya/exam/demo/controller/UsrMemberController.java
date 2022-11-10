@@ -96,7 +96,7 @@ public class UsrMemberController {
 
 		rq.logout();
 		
-		return Ut.jsReplace("로그아웃 되었습니다.", "/");
+		return Ut.jsReplace("로그아웃 되었습니다.", afterLogoutUri);
 	}
 	
 
