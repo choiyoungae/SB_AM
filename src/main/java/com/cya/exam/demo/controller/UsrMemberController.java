@@ -20,6 +20,11 @@ public class UsrMemberController {
 	@Autowired
 	private Rq rq;
 	
+	@RequestMapping("/usr/member/join")
+	public String showJoin() {
+		return "usr/member/join";
+	}
+	
 	@RequestMapping("/usr/member/doJoin")
 	@ResponseBody
 	public ResultData<Member> doJoin(String loginId, String loginPw, String name, String nickname, String cellphoneNum,
