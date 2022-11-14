@@ -1,5 +1,8 @@
 package com.cya.exam.demo.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -58,6 +61,23 @@ public class UsrMemberController {
 		String afterJoinUri = "../member/login?afterLoginUri=" + Ut.getUriEncoded(afterLoginUri);
 		
 		return rq.jsReplace("회원가입이 완료되었습니다. 로그인 후 이용해주세요", afterJoinUri);
+	}
+	
+	@RequestMapping("usr/member/getLoginIdDup")
+	@ResponseBody
+	public ResultData getLoginIdDup(String loginId) {
+		
+		if(Ut.isEmpty(loginId)) {
+			return ResultData.from("F-A1", "아이디를 입력해주세요.");
+		}
+		
+		Member oldMember = memberService.getMemberByLoginId(loginId);
+
+		if(oldMember != null) {			
+			return ResultData.from("F-A2", "이미 사용중인 아이디입니다.", "loginId", loginId);
+		}
+
+		return ResultData.from("S-1", "사용 가능한 아이디입니다.", "loginId", loginId);
 	}
 	
 	@RequestMapping("/usr/member/login")
